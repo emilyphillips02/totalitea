@@ -47,7 +47,7 @@ Contributors names and contact info:
 
 Emily Phillips [github](https://github.com/emilyphillips02)\
 Christabelle Jacques [github] ()\
-Abbeygayle Potts [github]()
+Abbeygayle Potts [github](https://github.com/AbbeygayleP)
 
 ## Version History :books:
 
