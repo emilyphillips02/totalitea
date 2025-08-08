@@ -46,7 +46,7 @@ command to run if program contains helper info
 Contributors names and contact info:
 
 Emily Phillips [github](https://github.com/emilyphillips02)\
-Christabelle Jacques [github] ()\
+Christabelle Jacques [github] (https://github.com/christabellejacques)\
 Abbeygayle Potts [github](https://github.com/AbbeygayleP)
 
 ## Version History :books:
@@ -58,13 +58,13 @@ Abbeygayle Potts [github](https://github.com/AbbeygayleP)
 This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
 
 ## Acknowledgments
-[Emoji Cheat Sheet](https://gist.github.com/roachhd/1f029bd4b50b8a524f3c) by roachhd
+[Emoji Cheat Sheet](https://gist.github.com/roachhd/1f029bd4b50b8a524f3c) by roachhd\
 [Basic writing and formatting syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#footnotes) by github docs 
 
 
 
-
-\\
+\
+\
 > [!NOTE]
 > Useful information that users should know, even when skimming content.
 
