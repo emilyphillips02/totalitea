@@ -45,7 +45,7 @@ command to run if program contains helper info
 
 Contributors names and contact info:
 
-Emily Phillips [github]()\
+Emily Phillips [github](https://github.com/emilyphillips02)\
 Christabelle Jacques [github] ()\
 Abbeygayle Potts [github]()
 
