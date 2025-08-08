@@ -9,7 +9,9 @@ The front end is composed of a sign-in page, product catalogue and search engine
 
 To use this web app, you will need to sign in, select products to add to your shopping cart, a place an order.
 
-No real bank information is required to use this app. Do not add real bank information.
+> [!IMPORTANT]
+> No real bank information is required to use this app. Do not add real bank information.
+
 
 ## Getting Started
 
@@ -43,8 +45,8 @@ command to run if program contains helper info
 
 Contributors names and contact info:
 
-Emily Phillips [github]()
-Christabelle Jacques [github] ()
+Emily Phillips [github]()\
+Christabelle Jacques [github] ()\
 Abbeygayle Potts [github]()
 
 ## Version History :books:
@@ -57,3 +59,20 @@ This project is licensed under the [NAME HERE] License - see the LICENSE.md file
 
 ## Acknowledgments
 [Emoji Cheat Sheet](https://gist.github.com/roachhd/1f029bd4b50b8a524f3c) by roachhd
+[Basic writing and formatting syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#footnotes) by github docs 
+
+
+
+
+\\
+> [!NOTE]
+> Useful information that users should know, even when skimming content.
+
+> [!TIP]
+> Helpful advice for doing things better or more easily.
+
+> [!WARNING]
+> Urgent info that needs immediate user attention to avoid problems.
+
+> [!CAUTION]
+> Advises about risks or negative outcomes of certain actions.
