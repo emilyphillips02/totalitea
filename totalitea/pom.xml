@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com</groupId>
-    <artifactId>totalitea</artifactId>
+    <artifactId>totaliteaShop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>totalitea</name>
+    <name>totaliteaShop</name>
     <description>totalitea</description>
     <url/>
     <licenses>
