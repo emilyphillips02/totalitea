@@ -1,6 +1,28 @@
-version: "3.9"
+# version: "3.9"
 
 services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/totalitea
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_FLYWAY_URL: jdbc:postgresql://db:5432/totalitea
+      SPRING_FLYWAY_USER: admin
+      SPRING_FLYWAY_PASSWORD: admin
+    depends_on:
+      db:
+        condition: service_healthy
+      mailhog:
+        condition: service_healthy
+    networks:
+      - totalitea-net
+
   db:
     image: postgres:16-alpine
     container_name: totalitea-db
@@ -22,6 +44,7 @@ services:
       - totalitea-net
 
   mailhog:
+    platform: linux/amd64
     image: mailhog/mailhog:v1.0.1
     container_name: totalitea-mailhog
     restart: unless-stopped
