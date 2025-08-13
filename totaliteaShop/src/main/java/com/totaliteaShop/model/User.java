@@ -1,4 +1,4 @@
-package com.totalitea.model;
+package com.totaliteaShop.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
