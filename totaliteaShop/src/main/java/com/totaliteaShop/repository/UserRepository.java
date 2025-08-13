@@ -1,6 +1,6 @@
-package com.totalitea.repository;
+package com.totaliteaShop.repository;
 
-import com.totalitea.model.User;
+import com.totaliteaShop.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
