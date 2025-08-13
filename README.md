@@ -10,7 +10,7 @@ Check for health:\
 
 Verify app is running:\
 Expected --> status up\
-`curl -fsS http://localhost:8080/actuator/health`
+`curl -fsS http://localhost:8081/actuator/health`
 Expected --> connected via admin\
 `docker exec -it totalitea-db psql -U admin -d totalitea -c '\conninfo'`
 
