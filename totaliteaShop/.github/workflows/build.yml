@@ -5,6 +5,8 @@ on:
   push:
     branches:
       [ "**" ]
+    pull_request: # runs when any PR is opened or updated
+    workflow_dispatch: # manual run workflow
 
 defaults:
   run:
