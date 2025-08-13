@@ -3,11 +3,10 @@ package com.totaliteaShop;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.util.AssertionErrors;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -36,10 +35,10 @@ class TotaliteaApplicationTests {
 
     }
 
-    void shippingCostCalculator() {
-        List<Integer> Cart = new ArrayList<>();
+     double shippingCostCalculator(List<Double> Cart) {
+//        List<Integer> Cart = new ArrayList<>();
         double Postage = 0;
-        Cart.add(2);
+        Cart.add(2.0);
         double cartWeight = 0;
         for (int i = 0; i < Cart.size(); i++) {
             cartWeight = +i;
@@ -48,20 +47,18 @@ class TotaliteaApplicationTests {
             Postage = 1.5;
         }
         System.out.println(Cart);
+        return Postage;
     }
 
     @Test
-    void testShipCostWeightLessThanFivekg() {
-
-////        ShippingCostCalculator shippingCostCalculator = new ShippingCostCalculator();
+    void testShipCostWeightLessThanFiveKG() {
 //
-//        List<Integer> lessThan5kgCart = new ArrayList<>();
+//        List<Double> lessThan5kgCart = new ArrayList<>();
 //
 //        double expectedCost = 1.5;
 //        double actualCost = shippingCostCalculator(lessThan5kgCart);
-//        assertEquals(expectedCost, actualCost);
-//    }
-
-
+//        AssertionErrors.assertEquals(expectedCost, actualCost);
     }
+
+
 }
