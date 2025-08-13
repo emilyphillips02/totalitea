@@ -12,4 +12,18 @@ class TotaliteaApplicationTests {
     void contextLoads() {
         // no-op: verifies the Spring context starts with the test profile
     }
+
+    //when basket size methods come in
+    @org.junit.jupiter.api.Test
+    void whenBasketEmpty(){
+        BasketSize basketSize = new BasketSize();
+        assertEquals(0, basketSize(0));
+
+    @org.junit.jupiter.api.Test
+    void whenBasket4(){
+        BasketSize basketSize = new BasketSize();
+        assertEquals(4, basketSize(4));
+
+   void
+
 }
