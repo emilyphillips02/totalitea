@@ -7,17 +7,17 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    env_file:
+      - .env
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/totalitea
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: admin
-      SPRING_FLYWAY_URL: jdbc:postgresql://db:5432/totalitea
-      SPRING_FLYWAY_USER: admin
-      SPRING_FLYWAY_PASSWORD: admin
+      SPRING_DATASOURCE_URL: jdbc:postgresql://${APP_DB_HOST}:${APP_DB_PORT}/${APP_DB_NAME}
+      SPRING_DATASOURCE_USERNAME: ${APP_DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${APP_DB_PASSWORD}
+      SPRING_FLYWAY_URL: jdbc:postgresql://${APP_DB_HOST}:${APP_DB_PORT}/${APP_DB_NAME}
+      SPRING_FLYWAY_USER: ${APP_DB_USER}
+      SPRING_FLYWAY_PASSWORD: ${APP_DB_PASSWORD}
     depends_on:
       db:
-        condition: service_healthy
-      mailhog:
         condition: service_healthy
     networks:
       - totalitea-net
@@ -27,13 +27,11 @@ services:
     container_name: totalitea-db
     restart: unless-stopped
     ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_DB: totalitea
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
+      - "5433:5432"
+    env_file:
+      - .env
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin -d totalitea"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -50,6 +48,8 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"
+    env_file:
+      - .env
     healthcheck:
       test: ["CMD", "wget", "-q", "-O-", "http://localhost:8025"]
       interval: 5s
@@ -63,4 +63,3 @@ volumes:
 
 networks:
   totalitea-net:
-    driver: bridge
