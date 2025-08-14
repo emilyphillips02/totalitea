@@ -19,23 +19,37 @@ class TotaliteaApplicationTests {
 
     //when basket size methods come in
     @Test
-    void testBasketEmpty() {
+    void given_BasketEmpty_thenReturnEmptyBasket() {
 //        BasketSize basketSize = new BasketSize();
 //        assertEquals(0, basketSize(0));
     }
 
     @Test
-    void testBasketFour() {
+    void givenBasketHas4_thenReturnListIs4() {
 //        BasketSize basketSize = new BasketSize();
 //        assertEquals(4, basketSize(4));
     }
 
     @Test
-    void testAddToCart() {
+    void givenObjectAddedToCart_thenReturnCartContains1() {
+        AddToBasket addToBasket = new AddToBasket();
+        expectedBasketSizeOne[] = 1;
+        actualBasketSize = addToBasket();
+        assertEquals(expectedBasketSizeOne, actualBasketSize)
 
     }
 
-     double shippingCostCalculator(List<Double> Cart) {
+    @Test
+    void givenCartWeightLessThan5KG_returnCost1point5() {
+//
+//        List<Double> lessThan5kgCart = new ArrayList<>();
+//
+//        double expectedCost = 1.5;
+//        double actualCost = shippingCostCalculator(lessThan5kgCart);
+//        AssertionErrors.assertEquals(expectedCost, actualCost);
+    }
+
+    double shippingCostCalculator(List<Double> Cart) {
 //        List<Integer> Cart = new ArrayList<>();
         double Postage = 0;
         Cart.add(2.0);
@@ -49,16 +63,4 @@ class TotaliteaApplicationTests {
         System.out.println(Cart);
         return Postage;
     }
-
-    @Test
-    void testShipCostWeightLessThanFiveKG() {
-//
-//        List<Double> lessThan5kgCart = new ArrayList<>();
-//
-//        double expectedCost = 1.5;
-//        double actualCost = shippingCostCalculator(lessThan5kgCart);
-//        AssertionErrors.assertEquals(expectedCost, actualCost);
-    }
-
-
 }
