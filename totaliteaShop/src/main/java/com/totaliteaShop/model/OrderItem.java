@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name="order_items")
 @Getter
@@ -22,8 +24,10 @@ public class OrderItem {
     @JoinColumn(name= "product_id", nullable = false)
     private Product product;
 
+    @ManyToOne
+    @JoinColumn(nullable = false)
     private Integer quantity;
 
-    @Column (name ="sub_total")
-    private Double subTotal;
+    @Column (name ="sub_total", nullable = false, precision=10, scale=2)
+    private BigDecimal subTotal;
 }
