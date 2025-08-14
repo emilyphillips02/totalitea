@@ -20,11 +20,6 @@ Feature: HomePage
         When: the User goes to local host without running the docker commands
         Then: local host blank or shows error message "can't reach this page"
 
-Feature: Homepage
-    Scenario: Database has not been set, thus can't login
-        When: the User has not connected to the database
-        And: opens the web app on local host
-        Then: green error message. cannot login
 
 Feature: Homepage
     Scenario: User attempts to login without account
@@ -47,8 +42,8 @@ Feature: Homepage
         Then: the homepage produces the error message "invalid email"
 
 Feature: Homepage
-    Scenario:
-        And:
-        When:
-        And:
-        Then:
+    Scenario: Database has not been set, thus can't login
+        When: the User has not connected to the database
+        And: opens the web app on local host
+        Then: green error message. cannot login
+
