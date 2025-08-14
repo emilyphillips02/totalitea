@@ -3,6 +3,7 @@ package com.totaliteaShop.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "order_items")
@@ -25,5 +26,5 @@ public class OrderItem {
     private Integer quantity;
 
     @Column(name = "sub_total", nullable = false, precision = 10, scale = 2)
-    private Double subTotal;
+    private BigDecimal subTotal;
 }

@@ -19,10 +19,10 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "total_price", nullable = false, precision = 10, scale = 2)
+    @Column(name = "total_price", nullable = false)
     private Double totalPrice;
 
-    @Column(name = "shipping_cost", nullable = false, precision = 10, scale = 2)
+    @Column(name = "shipping_cost", nullable = false)
     private Double shippingCost;
 
     @Column(nullable = false, length = 20)
