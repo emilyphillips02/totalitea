@@ -16,19 +16,22 @@ Feature: Add 3 number to basket
 
 
 //Sad Path
-Feature:
-    Scenario:
-        And:
-        When:
-        And:
-        Then:
+Feature: Basket
+    Scenario: quantity added beyond stock in database
+        When: the User adds a selected number to the basket
+        And: the quantity is greater than the database quantity
+        Then: pop up message "there is only X left in stock"
+        And: the X Will be the quantity of stock remaining in database
+        And: 0 will be added to the basket
 
-Feature:
-    Scenario:
-        And:
-        When:
-        And:
-        Then:
+
+Feature: Basket
+    Scenario: the User removes all items in the basket on the basket page but attempts to proceed to checkout
+        When: when on the basket page with valid stock and numbers
+        And: removes stock so basket is empty
+        And: then clicks "proceed to checkout"
+        Then: the page does not move onto the checkout page. The message "add items to basket before placing an order"
+        pops up on screen
 
 Feature:
     Scenario:
