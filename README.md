@@ -50,9 +50,15 @@ http://localhost:8025
 
 ### Testing in Development
 
-This web application was designed with Test Driven Development (TDD) in mind, along with Behaviour Driven Development (BDD).
+This web application was designed with Test Driven Development (TDD) in mind, along with Behaviour Driven Development (BDD) and integration tests.
 To see the TDD JUnit tests, please see TotaliteaApplicationTests within the test/java/com.totaliteaShop folder.
-To see the BDD tests, in cucumber formatting, please see test/com.totaliteaShop/BDDTests. 
+To see the BDD tests, in cucumber formatting, please see test/com.totaliteaShop/BDDTests.\
+BDD tests were written with the project requirements in mind. 
+The intergration tests used are the CI/CD pipeline tests available on github. These integration tests checked for compatability and conflicts during pull requests, and were automated to run rung said request, to reduce risk of build failure. When these automated integration tests passed, the code would be checked by a human to ensure that the intended effects are occuring, rather than just passing the build step.
+
+That is where the JUnit tests where integral to the build, with the BDD tests being used to guide the code chosen. The 3 together guided the direction of the code, then if that code worked on independant branches, if it then integrated effectively, and finally back to BDD to check the overall desired effect has been reached.
+
+
 
 
 ## Help :raising_hand:
