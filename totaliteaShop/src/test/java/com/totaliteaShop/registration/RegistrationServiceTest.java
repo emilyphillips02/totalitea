@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -39,7 +41,7 @@ class RegistrationServiceTest {
 
     @Test
     void registerUser_EmailAlreadyExists() {
-        when(userRepository.findByEmail("duplicate@example.com")).thenReturn(new User());
+        when(userRepository.findByEmail("duplicate@example.com")).thenReturn(Optional.of(new User()));
 
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
