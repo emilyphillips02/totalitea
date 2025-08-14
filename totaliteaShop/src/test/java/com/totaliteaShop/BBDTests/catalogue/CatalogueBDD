@@ -22,37 +22,32 @@ Feature: search the catalogue by type (e.g. "tea")
 
 
 //Sad Path
-Feature:
-    Scenario:
-        And:
-        When:
-        And:
-        Then:
+Feature: Catalogue
+    Scenario: Search by string with no match
+        When: user searches the catalogue by a custom string in the search bar
+        And: the string does not match any string featured in a product name, type, or description
+        Then: zero results will show. A message of "try a different search term" shows on the catalogue list area
 
-Feature:
-    Scenario:
-        And:
-        When:
-        And:
-        Then:
+Feature: Catalogue
+    Scenario: stacked tags don't yield a result
+        When: tags of types that don't have any product overlap are selected to filter products by
+        Then: zero results will show. A message of "try different tags" shows on the catalogue list area
 
-Feature:
-    Scenario:
-        And:
-        When:
-        And:
-        Then:
+Feature: Catalogue
+    Scenario: User enters database command, e.g DROP TABLES
+        When: the User enters a drop table command into the search bar
+        Then: the data is sanitised and identified as a database injection. An error message will be shown
+        "invalid search entry. Do not enter code injections again."
 
 
 //Exception
-Feature:
-    Scenario:
-        And:
-        When:
-        And:
-        Then:
+Feature: Catalogue
+    Scenario: Invalid input tye in search bar (Double)
+        When: the User enters a double instead of a string in the search bar
+        Then: an error message will show on screen "enter a valid search"
 
-Feature:
+
+Feature: Catalogue
     Scenario:
         And:
         When:
