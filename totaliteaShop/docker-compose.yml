@@ -16,6 +16,9 @@ services:
       SPRING_FLYWAY_URL: jdbc:postgresql://db:5432/totalitea
       SPRING_FLYWAY_USER: admin
       SPRING_FLYWAY_PASSWORD: admin
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+
     depends_on:
       db:
         condition: service_healthy
