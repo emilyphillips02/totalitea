@@ -1,0 +1,6 @@
+Feature: search catalogue by name
+    Scenario: the User filters the catalogue by a product name
+        Given: the product name exists within the product catalogue
+        When: the User enters a string to search by within the catalogue search bar
+        And: the User is logged in
+        Then: products with the searched string within the name or description appear in the search
