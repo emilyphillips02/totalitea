@@ -3,6 +3,8 @@ package com.totaliteaShop.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,6 +26,7 @@ public class User {
 
     private String role = "CUSTOMER";
 
+    @CreationTimestamp
     @Column(name = "date_registered", insertable = false, updatable = false)
     private LocalDateTime dateRegistered;
 }
