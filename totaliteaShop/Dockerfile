@@ -6,9 +6,7 @@ FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /workspace
 COPY pom.xml .
 COPY src ./src
-# RUN mvn -q -DskipTests package
-RUN mvn -q package
-ENV SPRING_PROFILE_ACTIVE=test
+RUN mvn -q -DskipTests package
 
 
 # Build jar file inside container
