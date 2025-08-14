@@ -7,7 +7,7 @@ Feature: Homepage
         And: ProgreSQL
         Then: home/login page loads up in local host web page
 
-Feature: Login
+Feature: Homepage
     Scenario: typing in Login credentials logs you into the website's catalogue
         Given: the credentials are valid
         When: the User types credentials into the login page
@@ -15,19 +15,16 @@ Feature: Login
 
 
 //Sad Path
-Feature:
-    Scenario:
-        And:
-        When:
-        And:
-        Then:
+Feature: HomePage
+    Scenario: docker not running thus not showing webapp on local host
+        When: the User goes to local host without running the docker commands
+        Then: local host blank or shows error message "can't reach this page"
 
-Feature:
-    Scenario:
-        And:
-        When:
-        And:
-        Then:
+Feature: Homepage
+    Scenario: Database has not been set, thus can't login
+        When: the User has not connected to the database
+        And: opens the web app on local host
+        Then: green error message. cannot login
 
 Feature:
     Scenario:
