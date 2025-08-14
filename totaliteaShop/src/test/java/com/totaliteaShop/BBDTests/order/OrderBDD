@@ -1,3 +1,4 @@
+//Happy Path
 Feature: placing an order takes you to the order page
     Scenario: The User has a basket with at least 1 item in it and places an order for it
         Given: the user clicks "order"
@@ -16,3 +17,41 @@ Feature: Order placed
         Then: the User receives a confirmation email
         And: the number of items ordered is removed from each products entry in the database
 
+
+//Sad Path
+Feature:
+    Scenario:
+        And:
+        When:
+        And:
+        Then:
+
+Feature:
+    Scenario:
+        And:
+        When:
+        And:
+        Then:
+
+Feature:
+    Scenario:
+        And:
+        When:
+        And:
+        Then:
+
+
+//Exception
+Feature:
+    Scenario:
+        And:
+        When:
+        And:
+        Then:
+
+Feature:
+    Scenario:
+        And:
+        When:
+        And:
+        Then:

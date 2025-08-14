@@ -1,3 +1,4 @@
+//Happy Path
 Feature: catalogue can be searched by a key word(string)
     Scenario: the User filters the catalogue by a key word
         Given: the product name or the word exists within a description exists within the product catalogue
@@ -18,3 +19,42 @@ Feature: search the catalogue by type (e.g. "tea")
         When: tea is featured in the catalogue
         And: the "tea" type is available as a searchable tag
         Then: the results will show products tagged as "tea"
+
+
+//Sad Path
+Feature:
+    Scenario:
+        And:
+        When:
+        And:
+        Then:
+
+Feature:
+    Scenario:
+        And:
+        When:
+        And:
+        Then:
+
+Feature:
+    Scenario:
+        And:
+        When:
+        And:
+        Then:
+
+
+//Exception
+Feature:
+    Scenario:
+        And:
+        When:
+        And:
+        Then:
+
+Feature:
+    Scenario:
+        And:
+        When:
+        And:
+        Then:

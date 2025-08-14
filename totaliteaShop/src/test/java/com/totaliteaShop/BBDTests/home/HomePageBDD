@@ -1,3 +1,4 @@
+//Happy Path
 Feature: Homepage
     Scenario: Check home/login page loads on local host
         Given: User runs the programme
@@ -11,3 +12,42 @@ Feature: Login
         Given: the credentials are valid
         When: the User types credentials into the login page
         Then: the User is logged in to the catalogue page
+
+
+//Sad Path
+Feature:
+    Scenario:
+        And:
+        When:
+        And:
+        Then:
+
+Feature:
+    Scenario:
+        And:
+        When:
+        And:
+        Then:
+
+Feature:
+    Scenario:
+        And:
+        When:
+        And:
+        Then:
+
+
+//Exception
+Feature:
+    Scenario:
+        And:
+        When:
+        And:
+        Then:
+
+Feature:
+    Scenario:
+        And:
+        When:
+        And:
+        Then:
