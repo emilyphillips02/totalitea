@@ -26,29 +26,9 @@ Feature:
         And:
         Then:
 
-Feature:
-    Scenario:
-        And:
-        When:
-        And:
-        Then:
-
-Feature:
-    Scenario:
-        And:
-        When:
-        And:
-        Then:
 
 
 //Exception
-Feature:
-    Scenario:
-        And:
-        When:
-        And:
-        Then:
-
 Feature:
     Scenario:
         And:
