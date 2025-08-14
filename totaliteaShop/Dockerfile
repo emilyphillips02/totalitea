@@ -8,6 +8,7 @@ COPY pom.xml .
 COPY src ./src
 RUN mvn -q -DskipTests package
 
+
 # Build jar file inside container
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
