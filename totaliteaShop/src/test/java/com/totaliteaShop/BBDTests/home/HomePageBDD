@@ -1,0 +1,13 @@
+Feature: Homepage
+    Scenario: Check home/login page loads on local host
+        Given: User runs the programme
+        When: the ports are running
+        And: host credentials for running containers are valid
+        And: ProgreSQL
+        Then: home/login page loads up in local host web page
+
+Feature: Login
+    Scenario: typing in Login credentials logs you into the website's catalogue
+        Given: the credentials are valid
+        When: the User types credentials into the login page
+        Then: the User is logged in to the catalogue page

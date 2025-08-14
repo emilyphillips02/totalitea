@@ -1,0 +1,20 @@
+Feature: search catalogue by name
+    Scenario: the User filters the catalogue by a product name
+        Given: the product name exists within the product catalogue
+        When: the User enters a string to search by within the catalogue search bar
+        And: the User is logged in
+        Then: products with the searched string within the name or description appear in the search
+
+Feature: Add to basket/cart
+    Scenario: the User adds a product to the basket/cart
+        Given: the User clicks "add to cart" the product is added to the cart
+        When: the product is available to be added to the cart
+        And: the User is logged in
+        Then: The product is listed within the cart, and the number of that item is one
+
+Feature: Add X number to basket
+    Scenario: The User adds multiple of the same thing to basket add the stated number to the basket
+        Given:
+        When:
+        Then:
+
