@@ -1,3 +1,5 @@
+# totalitea
+
 # Totalitea :coffee: :tea:
 
 An online shop designed from scratch, for a fictional coffee shop.
