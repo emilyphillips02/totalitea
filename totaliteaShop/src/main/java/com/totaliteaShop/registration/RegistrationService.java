@@ -1,4 +1,4 @@
-package com.totaliteaShop.service;
+package com.totaliteaShop.registration;
 
 import com.totaliteaShop.model.User;
 import com.totaliteaShop.repository.UserRepository;
@@ -14,14 +14,16 @@ public class RegistrationService {
         this.userRespository = userRespository;
         this.bCryptPasswordEncoder = passwordEncoder;
     }
+
     public User registerUser(String name, String email, String rawPassword) {
         if (userRespository.findByEmail(email) != null) {
             throw new IllegalArgumentException("Email already in use");
         }
+
         User user = new User();
         user.setName(name);
         user.setEmail(email);
-        user .setPasswordHash(bCryptPasswordEncoder.encode(rawPassword));
+        user.setPasswordHash(bCryptPasswordEncoder.encode(rawPassword));
 
         return userRespository.save(user);
     }
