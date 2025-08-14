@@ -1,0 +1,32 @@
+//Happy Path
+Feature: Homepage
+    Scenario: typing in Login credentials logs you into the website's catalogue
+        Given: the credentials are valid
+        When: the User types credentials into the login page
+        Then: the User is logged in to the catalogue page
+
+//Sad
+Feature: Homepage
+    Scenario: User attempts to login without account
+        When: the User has not setup an account for the email
+        And: attempts to login with the email
+        Then: the message "The email entered does not have an account. Please fill in the "create an account" form"
+
+Feature: Homepage
+    Scenario: User attempts to login with an incorrect password
+        When: the User has a valid email
+        And: attempts to login with the incorrect password
+        Then: the message "The password entered is invalid. Please check the spelling and try again"
+
+//Exception
+Feature: Homepage
+    Scenario: User attempts to log in with invalid string for an email,
+        And: docker, the database and code are all running and healthy
+        When: the User enters incorrect credentials into the email and password boxes
+        Then: the homepage produces the error message "invalid email"
+
+Feature: Homepage
+    Scenario: Database has not been set, thus can't login
+        When: the User has not connected to the database
+        And: opens the web app on local host
+        Then: green error message. cannot login
