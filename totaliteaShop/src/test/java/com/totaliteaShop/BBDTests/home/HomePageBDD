@@ -26,21 +26,14 @@ Feature: Homepage
         And: opens the web app on local host
         Then: green error message. cannot login
 
-Feature:
-    Scenario:
-        And:
-        When:
-        And:
-        Then:
 
 
 //Exception
-Feature:
-    Scenario:
-        And:
-        When:
-        And:
-        Then:
+Feature: Homepage
+    Scenario: User attempts to log in with invalid credentials
+        And: docker, the database and code are all running and healthy
+        When: the User enters incorrect credentials into the email and password boxes
+        Then: the homepage produces the error "invalid email or password"n:
 
 Feature:
     Scenario:
