@@ -1,0 +1,80 @@
+name: Build
+
+on:
+  pull_request:
+  push:
+    branches:
+      [ "**" ]
+    pull_request: # runs when any PR is opened or updated
+    workflow_dispatch: # manual run workflow
+
+defaults:
+  run:
+    working-directory: totaliteaShop
+
+jobs:
+  build:
+    name: ci-build # pinning check name so if workflow file name changes the check is still enforced
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: totalitea
+          POSTGRES_USER: admin
+          POSTGRES_PASSWORD: admin
+        options: >-
+          --health-cmd="pg_isready -U admin -d totalitea"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+        ports:
+          - 5432:5432
+
+    env:
+      APP_DB_HOST: localhost
+      APP_DB_PORT: 5432
+      APP_DB_NAME: totalitea
+      APP_DB_USER: admin
+      APP_DB_PASSWORD: admin
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Build & unit tests
+        run: ./mvnw -B -U -DskipTests=false -Dspring.profiles.active=ci verify
+
+      - name: Package jar
+        run: ./mvnw -B -DskipTests package
+
+      - name: Start app (bg)
+        run: |
+          nohup java \
+            -Dspring.profiles.active=ci \
+            -Dserver.port=18080 \
+            -Dmanagement.server.port=18081 \
+            -jar target/*-SNAPSHOT.jar > app.log 2>&1 &
+          echo $! > app.pid
+
+      - name: Wait for /actuator/health
+        run: |
+          for i in {1..60}; do
+            if curl -fsS http://localhost:18081/actuator/health >/dev/null; then
+              echo "Actuator health OK"; exit 0; fi
+            sleep 1
+          done
+          echo "Actuator health did not become ready" >&2
+          tail -n 200 app.log || true
+          exit 1
+
+      - name: Stop app
+        if: always()
+        run: |
+          if [ -f app.pid ]; then kill "$(cat app.pid)" || true; fi
+          pkill -f 'java.*target/.*-SNAPSHOT.jar' || true

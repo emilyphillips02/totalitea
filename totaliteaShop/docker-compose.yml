@@ -8,6 +8,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+      - "8081:8081"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/totalitea
       SPRING_DATASOURCE_USERNAME: admin
@@ -15,6 +16,9 @@ services:
       SPRING_FLYWAY_URL: jdbc:postgresql://db:5432/totalitea
       SPRING_FLYWAY_USER: admin
       SPRING_FLYWAY_PASSWORD: admin
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+
     depends_on:
       db:
         condition: service_healthy
