@@ -36,7 +36,7 @@ Feature: Homepage
     Scenario: User attempts to login with an incorrect password
         When: the User has a valid email
         And: attempts to login with the incorrect password
-        Then: the message "The password entered is invallid. Please check the spelling and try again"
+        Then: the message "The password entered is invalid. Please check the spelling and try again"
 
 
 //Exception
