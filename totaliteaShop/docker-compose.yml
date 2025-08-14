@@ -1,12 +1,10 @@
-version: "3.9"
-
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8081:8081"
     env_file:
       - .env
     environment:
@@ -21,45 +19,3 @@ services:
         condition: service_healthy
     networks:
       - totalitea-net
-
-  db:
-    image: postgres:16-alpine
-    container_name: totalitea-db
-    restart: unless-stopped
-    ports:
-      - "5433:5432"
-    env_file:
-      - .env
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-    volumes:
-      - db_data:/var/lib/postgresql/data
-    networks:
-      - totalitea-net
-
-  mailhog:
-    platform: linux/amd64
-    image: mailhog/mailhog:v1.0.1
-    container_name: totalitea-mailhog
-    restart: unless-stopped
-    ports:
-      - "1025:1025"
-      - "8025:8025"
-    env_file:
-      - .env
-    healthcheck:
-      test: ["CMD", "wget", "-q", "-O-", "http://localhost:8025"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-    networks:
-      - totalitea-net
-
-volumes:
-  db_data:
-
-networks:
-  totalitea-net:
