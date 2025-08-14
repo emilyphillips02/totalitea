@@ -26,16 +26,27 @@ Feature: Homepage
         And: opens the web app on local host
         Then: green error message. cannot login
 
+Feature: Homepage
+    Scenario: User attempts to login without account
+        When: the User has not setup an account for the email
+        And: attempts to login with the email
+        Then: the message "The email entered does not have an account. Please fill in the "create an account" form"
+
+Feature: Homepage
+    Scenario: User attempts to login with an incorrect password
+        When: the User has a valid email
+        And: attempts to login with the incorrect password
+        Then: the message "The password entered is invallid. Please check the spelling and try again"
 
 
 //Exception
 Feature: Homepage
-    Scenario: User attempts to log in with invalid credentials
+    Scenario: User attempts to log in with invalid string for an email,
         And: docker, the database and code are all running and healthy
         When: the User enters incorrect credentials into the email and password boxes
-        Then: the homepage produces the error "invalid email or password"n:
+        Then: the homepage produces the error message "invalid email"
 
-Feature:
+Feature: Homepage
     Scenario:
         And:
         When:
