@@ -15,6 +15,7 @@ defaults:
 
 jobs:
   build:
+    name: ci-build # pinning check name so if workflow file name changes the check is still enforced
     runs-on: ubuntu-latest
 
     services:
