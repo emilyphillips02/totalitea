@@ -1,15 +1,15 @@
-Feature: Add to basket/cart
-    Scenario: the User adds a product to the basket/cart
-        Given: the User clicks "add to cart" the product is added to the cart
-        When: the product is available to be added to the cart
+Feature: Add to basket
+    Scenario: the User adds a product to the basket
+        Given: the User clicks "add to basket" the product is added to the basket
+        When: the product is available to be added to the basket
         And: the User is logged in
-        Then: The product is listed within the cart, and the number of that item is one
+        Then: The product is listed within the basket, and the number of that item is one
 
 Feature: Add 3 number to basket
-    Scenario: The User adds multiple of the same thing to basket add the stated number to the basket
-        Given: the user clicks "add to cart"
+    Scenario: The User adds the item to the basket add the stated number to the basket
+        Given: the user clicks "add to basket"
         And: the User sets the "number of item" to "3"
         And: the User is logged in
         When: the product number is available in the catalogue
-        Then: 3 of the selected item will be added to cart
+        Then: 3 of the selected item will be added to basket
 
