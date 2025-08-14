@@ -45,11 +45,3 @@ Feature: Catalogue
     Scenario: Invalid input tye in search bar (Double)
         When: the User enters a double instead of a string in the search bar
         Then: an error message will show on screen "enter a valid search"
-
-
-Feature: Catalogue
-    Scenario:
-        And:
-        When:
-        And:
-        Then:
