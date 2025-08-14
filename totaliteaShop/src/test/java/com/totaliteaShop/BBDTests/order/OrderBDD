@@ -1,0 +1,18 @@
+Feature: placing an order takes you to the order page
+    Scenario: The User has a basket with at least 1 item in it and places an order for it
+        Given: the user clicks "order"
+        And: the User has at least 1 item in basket
+        And: the User is logged in
+        When: the order page is available
+        Then: the item with corresponding information will be shown or order page
+        And: shipping costs calculation will be shown
+        And: card information form is shown
+
+Feature: Order placed
+    Scenario: The User has placed an order, and receives a confirmation email of the order, and the number of item(s)
+     are removed from the database
+        Given: the user has placed an order
+        When: the products in the catalogue's quantity matches or is less than that of the database
+        Then: the User receives a confirmation email
+        And: the number of items ordered is removed from each products entry in the database
+
