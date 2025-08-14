@@ -1,4 +1,4 @@
-package com.totalitea.config;
+package com.totaliteaShop.config;
 
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
