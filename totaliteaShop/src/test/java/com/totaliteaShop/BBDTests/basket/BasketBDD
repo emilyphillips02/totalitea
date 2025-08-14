@@ -1,18 +1,23 @@
 //Happy Path
-Feature: Add to basket
+Feature: Basket
     Scenario: the User adds a product to the basket
         Given: the User clicks "add to basket" the product is added to the basket
         When: the product is available to be added to the basket
         And: the User is logged in
         Then: The product is listed within the basket, and the number of that item is one
 
-Feature: Add 3 number to basket
+Feature: Basket
     Scenario: The User adds the item to the basket add the stated number to the basket
         Given: the user clicks "add to basket"
         And: the User sets the "number of item" to "3"
         And: the User is logged in
         When: the product number is available in the catalogue
         Then: 3 of the selected item will be added to basket
+
+Feature:Basket
+    Scenario: user Empties the basket
+        When: the User removes items from the basket
+        Then: the basket appears empty
 
 
 //Sad Path
@@ -23,13 +28,6 @@ Feature: Basket
         Then: pop up message "there is only X left in stock"
         And: the X Will be the quantity of stock remaining in database
         And: 0 will be added to the basket
-
-Feature:
-    Scenario:
-        And:
-        When:
-        And:
-        Then:
 
 
 //Exception
