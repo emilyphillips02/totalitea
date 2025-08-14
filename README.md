@@ -48,7 +48,7 @@ Test Mailhog:\
 Expected --> acess mailhog ui via link
 http://localhost:8025
 
-### Testing in Development
+## Testing in Development
 
 This web application was designed with Test Driven Development (TDD) in mind, along with Behaviour Driven Development (BDD) and integration tests.
 To see the TDD JUnit tests, please see TotaliteaApplicationTests within the test/java/com.totaliteaShop folder.
