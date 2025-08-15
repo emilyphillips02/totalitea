@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/", "/index",
                                 "/error",
-                                "/login", "/logout",
+                                "/register", "/login", "/logout",
                                 "/assets/**", "/css/**", "/js/**"
                         ).permitAll()
                         .anyRequest().authenticated())
