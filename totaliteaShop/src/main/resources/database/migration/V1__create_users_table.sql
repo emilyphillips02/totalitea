@@ -1,6 +1,6 @@
 -- Users table
 CREATE TABLE users (
-                       id BIGSERIAL PRIMARY KEY,
+                       id SERIAL PRIMARY KEY,
                        name VARCHAR (100) NOT NULL,
                        email VARCHAR(150) UNIQUE NOT NULL,
                        password_hash VARCHAR(255) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE users (
 );
 -- Products table
 CREATE TABLE products (
-                          id BIGSERIAL PRIMARY KEY,
+                          id SERIAL PRIMARY KEY,
                           name VARCHAR (50) NOT NULL,
                           supplier VARCHAR (100) NOT NULL,
                           type VARCHAR (50) NOT NULL, -- latte cappuccino, english breakfast tea etc
@@ -22,7 +22,7 @@ CREATE TABLE products (
 
 -- Order table
 CREATE TABLE orders (
-                        id BIGSERIAL PRIMARY KEY,
+                        id SERIAL PRIMARY KEY,
                         user_id INT REFERENCES users(id) ON DELETE CASCADE,
                         total_price DECIMAL (10,2) NOT NULL,
                         shipping_cost DECIMAL (10,2) NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE orders (
 
 -- Order item table
 CREATE TABLE order_items(
-                            id BIGSERIAL PRIMARY KEY ,
+                            id SERIAL PRIMARY KEY ,
                             order_id INT REFERENCES orders(id) ON DELETE CASCADE,
                             product_id INT REFERENCES products(id) ON DELETE CASCADE,
                             quantity INT NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE order_items(
 );
 -- Shipping rules
 CREATE TABLE shipping_rules(
-                               id BIGSERIAL PRIMARY KEY,
+                               id SERIAL PRIMARY KEY,
                                min_weight DECIMAL(6,2) NOT NULL,
                                max_weight DECIMAL(6,2),
                                cost DECIMAL (10,2) NOT NULL,
