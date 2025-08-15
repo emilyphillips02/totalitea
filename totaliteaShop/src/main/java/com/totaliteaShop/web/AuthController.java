@@ -36,8 +36,8 @@ public class AuthController {
         return "basket";
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/error")
     public String admin() {
-        return "admin/dashboard";
+        return "error";
     }
 }

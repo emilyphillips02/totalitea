@@ -2,12 +2,20 @@
      xmlns:th="http://www.thymeleaf.org">
     <a class="brand" th:href="@{/}">Totalitea -Navbar</a>
 <ul>
+    <!-- Catalog -->
+    <li th:classappend="${activePage}=='catalog' ? 'active'">
+        <a th:href="@{/catalog}">Catalog</a>
+    </li>
+    <!-- Basket -->
+    <li th:classappend="${activePage}=='basket' ? 'active'">
+        <a th:href="@{/basket}">Basket</a>
+    </li>
     <!-- Show Login/Register when anonymous -->
     <li th:if="${!#authorization.expression('isAuthenticated()')}"
         th:classappend="${activePage}=='login' ? 'active'">
         <a th:href="@{/login}">Login</a>
     </li>
-
+    <!-- Register -->
     <li th:if="${!#authorization.expression('isAuthenticated()')}"
         th:classappend="${activePage}=='register' ? 'active'">
         <a th:href="@{/register}">Register</a>
@@ -19,6 +27,11 @@
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <button type="submit">Logout</button>
         </form>
+    </li>
+    <!-- Admin -->
+    <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+        th:classappend="${activePage}=='admin' ? 'active'">
+        <a th:href="@{/admin}">Admin</a>
     </li>
 </ul>
 </nav>

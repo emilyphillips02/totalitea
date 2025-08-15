@@ -34,19 +34,20 @@ public class SecurityConfig {
     // Web app: form login + CSRF
     @Bean @Order(3)
     SecurityFilterChain webChain(HttpSecurity http) throws Exception {
-        http
-                .securityMatcher("/**")
+        http.securityMatcher("/**")
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/", "/index",
-                                "/error",
-                                "/register", "/login", "/logout",
-                                "/assets/**", "/css/**", "/js/**"
+                                "/login", "/register",
+                                "/catalog/**", "/basket/**",
+                                "/error", "/favicon.ico",
+                                "/assets/**", "/css/**", "/js/**", "/images/**", "/webjars/**"
                         ).permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .csrf(Customizer.withDefaults())
                 .formLogin(form -> form
-                        .loginPage("/login")      // custom login page
+                        .loginPage("/login")
                         .defaultSuccessUrl("/", true)
                         .permitAll())
                 .logout(Customizer.withDefaults());
