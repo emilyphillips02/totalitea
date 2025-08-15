@@ -1,4 +1,4 @@
-package com.totaliteaShop.registration;
+package com.totaliteaShop.dto;
 
 import com.totaliteaShop.model.User;
 import com.totaliteaShop.repository.UserRepository;
