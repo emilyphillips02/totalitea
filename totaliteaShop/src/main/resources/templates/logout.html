@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Logged Out</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar('logout')}"></div>
+<h1>Bye bye!</h1>
+<div>
+    <h4>You are logged out</h4>
+    <button type="Login">Login</button>
+</div>
+</body>
+</html>
