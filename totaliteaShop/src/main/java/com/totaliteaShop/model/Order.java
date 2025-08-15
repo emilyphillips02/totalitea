@@ -9,29 +9,29 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name="orders")
+@Table(name = "orders")
 @Getter
 @Setter
-
 public class Order {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name ="user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name ="total_price", nullable = false, precision = 10, scale=2)
+    @Column(name = "total_price", nullable = false, precision = 10, scale = 2)
     private BigDecimal totalPrice;
 
-    @Column(name="shipping_cost", nullable = false, precision = 10, scale = 2)
+    @Column(name = "shipping_cost", nullable = false, precision = 10, scale = 2)
     private BigDecimal shippingCost;
 
     @Column
     private String status = "PENDING";
 
-    @Column(name="order_date")
+    @Column(name = "order_date")
     private LocalDateTime orderDate = LocalDateTime.now();
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)

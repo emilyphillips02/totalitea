@@ -25,9 +25,9 @@ public class User {
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
-    @Column(length=20)
+    @Column(length = 20)
     private String role = "CUSTOMER";
 
-    @Column(name = "registered_at")
-    private LocalDateTime registeredAt = LocalDateTime.now();
+    @Column(name = "date_registered")
+    private LocalDateTime dateRegistered = LocalDateTime.now();
 }
