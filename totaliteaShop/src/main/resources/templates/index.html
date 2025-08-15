@@ -6,7 +6,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
 </head>
 <body>
-<h1>Welcome</h1>
+<div th:replace="~{fragments/navbar :: navbar('home')}"></div>
+<h1>Home</h1>
 <div>
     <a th:href="@{/login}">Go to Login Page</a>
 </div>

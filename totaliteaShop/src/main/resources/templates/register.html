@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar('register')}"></div>
+<h1>Register</h1>
+<h4>Make an account here:</h4>
+<div>
+    <a th:href="@{/login}">Already have an account?</a>
+    <button type="Login">Login</button>
+</div>
+</body>
+</html>
