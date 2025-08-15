@@ -1,4 +1,4 @@
-package com.totalitea.config;
+package com.totaliteaShop.config;
 
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
@@ -35,8 +35,14 @@ public class SecurityConfig {
     @Bean @Order(3)
     SecurityFilterChain webChain(HttpSecurity http) throws Exception {
         http
+                .securityMatcher("/**")
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/assets/**", "/css/**", "/js/**", "/index", "/error").permitAll()
+                        .requestMatchers(
+                                "/", "/index",
+                                "/error",
+                                "/login", "/logout",
+                                "/assets/**", "/css/**", "/js/**"
+                        ).permitAll()
                         .anyRequest().authenticated())
                 .csrf(Customizer.withDefaults())
                 .formLogin(form -> form
@@ -55,8 +61,6 @@ public class SecurityConfig {
     // Spring Security's JDBC user store against our tables
     @Bean
     UserDetailsService userDetailsService(DataSource dataSource) {
-        JdbcUserDetailsManager mgr = new JdbcUserDetailsManager(dataSource);
-        // default table/column names already match our Flyway schema
-        return mgr;
+        return new JdbcUserDetailsManager(dataSource);
     }
 }
