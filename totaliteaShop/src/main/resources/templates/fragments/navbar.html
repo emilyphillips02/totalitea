@@ -1,17 +1,17 @@
 <nav th:fragment="navbar(activePage)"
      xmlns:th="http://www.thymeleaf.org">
-    <a class="brand" th:href="@{/}">Totalitea</a>
+    <a class="brand" th:href="@{/}">Totalitea -Navbar</a>
 <ul>
     <!-- Show Login/Register when anonymous -->
     <li th:if="${!#authorization.expression('isAuthenticated()')}"
         th:classappend="${activePage}=='login' ? 'active'">
         <a th:href="@{/login}">Login</a>
     </li>
+
     <li th:if="${!#authorization.expression('isAuthenticated()')}"
         th:classappend="${activePage}=='register' ? 'active'">
         <a th:href="@{/register}">Register</a>
     </li>
-
     <!-- Logout when authenticated -->
     <li th:if="${#authorization.expression('isAuthenticated()')}">
         <span>Hello, <span th:text="${#authentication.name}">user</span></span>
