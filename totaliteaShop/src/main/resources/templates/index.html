@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar('home')}"></div>
+<h1>Home</h1>
+<div>
+    <a th:href="@{/login}">Go to Login Page</a>
+</div>
+</body>
+</html>
