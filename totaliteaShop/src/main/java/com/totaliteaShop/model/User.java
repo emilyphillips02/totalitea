@@ -16,15 +16,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 100)
     private String name;
 
+    @Column(nullable = false, length = 150, unique = true)
     private String email;
 
-    @Column(name = "password_hash")
+    @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
+    @Column(length=20)
     private String role = "CUSTOMER";
 
-    @Column(name = "date_registered", insertable = false, updatable = false)
-    private LocalDateTime dateRegistered;
+    @Column(name = "registered_at")
+    private LocalDateTime registeredAt = LocalDateTime.now();
 }
