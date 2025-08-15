@@ -2,15 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Register</title>
+    <title>Logged Out</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
 </head>
 <body>
-<div th:replace="~{fragments/navbar :: navbar('register')}"></div>
-<h1>Register</h1>
-<h4>Make an account here:</h4>
+<div th:replace="~{fragments/navbar :: navbar('logout')}"></div>
+<h1>Bye bye!</h1>
 <div>
-    Already have an account?
+    <h4>You are logged out</h4>
     <button type="Login">Login</button>
 </div>
 </body>
