@@ -15,7 +15,7 @@ import java.time.Instant;
 @Setter
 @Entity
 @Table(name = "products")
-public class Product {
+public class ProductModel {
     @Id
     @ColumnDefault("nextval('products_id_seq')")
     @Column(name = "id", nullable = false)

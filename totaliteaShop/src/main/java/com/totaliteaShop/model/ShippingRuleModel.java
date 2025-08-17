@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @Setter
 @Entity
 @Table(name = "shipping_rules")
-public class ShippingRule {
+public class ShippingRuleModel {
     @Id
     @ColumnDefault("nextval('shipping_rules_id_seq')")
     @Column(name = "id", nullable = false)

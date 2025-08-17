@@ -5,9 +5,9 @@ An online shop designed from scratch, for a fictional coffee shop.
 ## Description :page_with_curl:
 
 Totalitea is a small chain of coffee shops that want to reach a wider market through an online presence. This website has a front end and back end.
-The front end is composed of a sign-in page, product catalogue and search engine, shopping cart, order page and order confirmed page. You will be able to see information about the brand/supplier, the type, the amount (grams), cost and a description of the product;
+The front end is composed of a sign-in page, productModel catalogue and search engine, shopping cart, orderModel page and orderModel confirmed page. You will be able to see information about the brand/supplier, the type, the amount (grams), cost and a description of the productModel;
 
-To use this web app, you will need to sign in, select products to add to your shopping cart, a place an order.
+To use this web app, you will need to sign in, select products to add to your shopping cart, a place an orderModel.
 
 > [!WARNING]
 > No real bank information is required to use this app. Do not add real bank information.
@@ -86,6 +86,6 @@ This project is licensed under the [NAME HERE] License - see the LICENSE.md file
 > [!IMPORTANT]
 > Key information users need to know to achieve their goal.
 > [!WARNING]
-> Urgent info that needs immediate user attention to avoid problems.
+> Urgent info that needs immediate userModel attention to avoid problems.
 > [!CAUTION]
 > Advises about risks or negative outcomes of certain actions.

@@ -15,7 +15,7 @@ import java.time.Instant;
 @Setter
 @Entity
 @Table(name = "orders")
-public class Order {
+public class OrderModel {
     @Id
     @ColumnDefault("nextval('orders_id_seq')")
     @Column(name = "id", nullable = false)
