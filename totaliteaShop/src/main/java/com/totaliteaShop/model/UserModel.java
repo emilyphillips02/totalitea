@@ -14,7 +14,7 @@ import java.time.Instant;
 @Setter
 @Entity
 @Table(name = "users")
-public class User {
+public class UserModel {
     @Id
     @ColumnDefault("nextval('users_id_seq')")
     @Column(name = "id", nullable = false)

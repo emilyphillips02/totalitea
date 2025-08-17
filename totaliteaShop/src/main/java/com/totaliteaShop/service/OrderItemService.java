@@ -1,7 +1,6 @@
 package com.totaliteaShop.service;
 
-import com.totaliteaShop.model.Order;
-import com.totaliteaShop.model.OrderItem;
+import com.totaliteaShop.model.OrderItemModel;
 import com.totaliteaShop.repository.OrderItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,19 +13,19 @@ import java.util.Optional;
 public class OrderItemService {
     private final OrderItemRepository orderItemRepository;
 
-    public OrderItem addOrderItem(OrderItem orderItem) {
-        return orderItemRepository.save(orderItem);
+    public OrderItemModel addOrderItem(OrderItemModel orderItemModel) {
+        return orderItemRepository.save(orderItemModel);
     }
-    public Optional<OrderItem> getOrderItemById(Long id) {
+    public Optional<OrderItemModel> getOrderItemById(Long id) {
         return orderItemRepository.findById(id);
     }
-    public List<OrderItem> getItemByOrderId(Long orderId){
+    public List<OrderItemModel> getItemByOrderId(Long orderId){
         return orderItemRepository.findByOrderId(orderId);
     }
-    public List<OrderItem> getItemsByOrderIdAndProductId(Long orderId, Long productId){
+    public List<OrderItemModel> getItemsByOrderIdAndProductId(Long orderId, Long productId){
         return orderItemRepository.findByOrderIdAndProductId(orderId, productId);
     }
-    public List<OrderItem>getAllItemByOrderId(Long orderId){
+    public List<OrderItemModel>getAllItemByOrderId(Long orderId){
         return orderItemRepository.findByOrderId(orderId);
     }
     public void deleteOrderItemById(Long id){

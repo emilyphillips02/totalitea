@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @Setter
 @Entity
 @Table(name = "order_items")
-public class OrderItem {
+public class OrderItemModel {
     @Id
     @ColumnDefault("nextval('order_items_id_seq')")
     @Column(name = "id", nullable = false)
