@@ -9,7 +9,7 @@ The front end is composed of a sign-in page, product catalogue and search engine
 
 To use this web app, you will need to sign in, select products to add to your shopping cart, a place an order.
 
-To see the architecture of this app, please click [here] (totalitea/architecture)
+To see the architecture of this app, please click [here](https://github.com/emilyphillips02/totalitea/blob/architecturediagram/totaliteaShop/totalitea.png)
 
 > [!WARNING]
 > No real bank information is required to use this app. Do not add real bank information.
