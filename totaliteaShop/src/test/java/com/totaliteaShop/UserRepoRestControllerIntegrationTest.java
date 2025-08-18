@@ -27,12 +27,12 @@ public class UserRepoRestControllerIntegrationTest {
     private UserRepository repository;
 
     @Test
-    public void givenEmployees_whenGetEmployees_thenStatus200()
+    public void givenUsers_whenGetUsers_thenStatus200()
             throws Exception {
 
         createTestUser("John");
 
-        mvc.perform(get("/api/employees")
+        mvc.perform(get("/api/user")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
