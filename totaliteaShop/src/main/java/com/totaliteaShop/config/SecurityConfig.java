@@ -26,6 +26,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(EndpointRequest.to("health", "info")).permitAll()
+                        .requestMatchers(EndpointRequest.to("env")).permitAll()
                         .anyRequest().hasRole("ACTUATOR"))
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
