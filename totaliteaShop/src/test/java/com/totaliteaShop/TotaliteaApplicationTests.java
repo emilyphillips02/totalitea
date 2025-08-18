@@ -3,10 +3,10 @@ package com.totaliteaShop;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.util.AssertionErrors;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -35,27 +35,29 @@ class TotaliteaApplicationTests {
         AddToBasket addToBasket = new AddToBasket();
         expectedBasketSizeOne[] = 1;
         actualBasketSize = addToBasket();
-        assertEquals(expectedBasketSizeOne, actualBasketSize)
+        assertEquals(expectedBasketSizeOne, actualBasketSize);
 
     }
 
     @Test
     void givenCartWeightLessThan5KG_returnCost1point5() {
-//
-//        List<Double> lessThan5kgCart = new ArrayList<>();
-//
-//        double expectedCost = 1.5;
-//        double actualCost = shippingCostCalculator(lessThan5kgCart);
-//        AssertionErrors.assertEquals(expectedCost, actualCost);
+
+        List<Double> lessThan5kgCart = new ArrayList<>();
+        double expectedCost = 1.5;
+        double weight = 1;
+
+        lessThan5kgCart.add(weight);
+
+        double actualCost = shippingCostCalculator(lessThan5kgCart);
+
+        assertEquals(expectedCost, actualCost);
     }
 
     double shippingCostCalculator(List<Double> Cart) {
-//        List<Integer> Cart = new ArrayList<>();
         double Postage = 0;
-        Cart.add(2.0);
         double cartWeight = 0;
         for (int i = 0; i < Cart.size(); i++) {
-            cartWeight = +i;
+            cartWeight += i;
         }
         if (cartWeight < 5) {
             Postage = 1.5;

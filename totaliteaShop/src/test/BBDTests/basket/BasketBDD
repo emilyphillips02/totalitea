@@ -1,12 +1,17 @@
 //Happy Path
-Feature: Basket
+Feature: viewing Basket page(?)
+    Scenario: the User looks at the basket page to see all items and quantities
+        When: the user clicks on the basket button
+        Then: the user is taken to the basket page which shows all items and quantities added to the basket
+
+Feature: add to Basket
     Scenario: the User adds a product to the basket
         Given: the User clicks "add to basket" the product is added to the basket
         When: the product is available to be added to the basket
         And: the User is logged in
         Then: The product is listed within the basket, and the number of that item is one
 
-Feature: Basket
+Feature: add quantity to Basket
     Scenario: The User adds the item to the basket add the stated number to the basket
         Given: the user clicks "add to basket"
         And: the User sets the "number of item" to "3"
@@ -14,14 +19,14 @@ Feature: Basket
         When: the product number is available in the catalogue
         Then: 3 of the selected item will be added to basket
 
-Feature:Basket
+Feature: removes all items from Basket
     Scenario: user Empties the basket
         When: the User removes items from the basket
         Then: the basket appears empty
 
 
 //Sad Path
-Feature: Basket
+Feature: invalid quantity added to Basket
     Scenario: quantity added beyond stock in database
         When: the User adds a selected number to the basket
         And: the quantity is greater than the database quantity
@@ -31,17 +36,10 @@ Feature: Basket
 
 
 //Exception
-Feature: Basket
+Feature: attempts checkout with empty Basket
     Scenario: the User removes all items in the basket on the basket page but attempts to proceed to checkout
         When: when on the basket page with valid stock and numbers
         And: removes stock so basket is empty
         And: then clicks "proceed to checkout"
         Then: the page does not move onto the checkout page. The message "add items to basket before placing an order"
         pops up on screen
-
-Feature:
-    Scenario:
-        And:
-        When:
-        And:
-        Then:
