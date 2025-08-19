@@ -12,23 +12,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class RegistrationController {
     private final UserService userService;
+
     public RegistrationController(UserService userService) {
         this.userService = userService;
     }
  @GetMapping("/register")
-public String showRegistrationForm(Model model)
+public String showRegister(Model model)
 {model.addAttribute("user", new User());
-    return "registration.form";
+    return "register";
 }
 @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") User user,
-                               @RequestParam("password") String password, Model model) {
-        String result =userService.register(user,password);
+    public String registerUser(@ModelAttribute("user") User user, Model model)
+{String result =userService.register(user, user.getPassword());
         if ("Success".equals(result)) {
             return "redirect:/login";
         } else {
             model .addAttribute("errorMessage", result);
-            return "registration.form";
+            return "register";
         }
 }
 
