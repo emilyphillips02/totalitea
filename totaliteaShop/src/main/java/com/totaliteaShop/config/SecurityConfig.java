@@ -48,10 +48,16 @@ public class SecurityConfig {
                 .csrf(Customizer.withDefaults())
                 .formLogin(form -> form
                         .loginPage("/login")
+                        .usernameParameter("email")
+                        .passwordParameter("password")
                         .defaultSuccessUrl("/", true)
                         .permitAll())
-                .logout(Customizer.withDefaults());
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout")
+                        .permitAll());
         return http.build();
+
     }
 
     @Bean

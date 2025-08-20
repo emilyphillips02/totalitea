@@ -16,11 +16,6 @@ public class AuthController {
         return "login";
     }
 
-    @GetMapping("/logout")
-    public String logout() {
-        return "logout";
-    }
-
     @GetMapping("/catalog")
     public String catalog() {
         return "catalog";
