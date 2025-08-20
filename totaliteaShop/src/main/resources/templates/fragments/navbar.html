@@ -1,37 +1,33 @@
-<nav th:fragment="navbar(activePage)"
-     xmlns:th="http://www.thymeleaf.org">
-    <a class="brand" th:href="@{/}">Totalitea -Navbar</a>
-<ul>
-    <!-- Catalog -->
-    <li th:classappend="${activePage}=='catalog' ? 'active'">
+<nav th:fragment="navbar(activePage)" xmlns:th="http://www.thymeleaf.org"
+     style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
+
+    <!-- Left Section -->
+    <div style="display: flex; gap: 15px; align-items: center;">
+        <span style="font-weight: bold;">
+            <a th:href="@{/}">Totalitea</a>
+        </span>
+
         <a th:href="@{/catalog}">Catalog</a>
-    </li>
-    <!-- Basket -->
-    <li th:classappend="${activePage}=='basket' ? 'active'">
         <a th:href="@{/basket}">Basket</a>
-    </li>
-    <!-- Show Login/Register when anonymous -->
-    <li th:if="${!#authorization.expression('isAuthenticated()')}"
-        th:classappend="${activePage}=='login' ? 'active'">
-        <a th:href="@{/login}">Login</a>
-    </li>
-    <!-- Register -->
-    <li th:if="${!#authorization.expression('isAuthenticated()')}"
-        th:classappend="${activePage}=='register' ? 'active'">
-        <a th:href="@{/register}">Register</a>
-    </li>
-    <!-- Logout when authenticated -->
-    <li th:if="${#authorization.expression('isAuthenticated()')}">
-        <span>Hello, <span th:text="${#authentication.name}">user</span></span>
-        <form th:action="@{/logout}" method="post" style="display:inline">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+        <span th:if="${!#authorization.expression('isAuthenticated()')}">
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/register}">Register</a>
+        </span>
+
+        <span th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <a th:href="@{/admin}">Admin</a>
+        </span>
+    </div>
+
+    <!-- Right Section -->
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <span th:if="${#authorization.expression('isAuthenticated()')}">
+            Hello, <span th:text="${#authentication.name}">user</span>
+        </span>
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
             <button type="submit">Logout</button>
         </form>
-    </li>
-    <!-- Admin -->
-    <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
-        th:classappend="${activePage}=='admin' ? 'active'">
-        <a th:href="@{/admin}">Admin</a>
-    </li>
-</ul>
+    </div>
 </nav>
