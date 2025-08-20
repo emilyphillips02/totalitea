@@ -14,8 +14,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/totalitea
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: admin
-      SPRING_FLYWAY_ENABLED: "true"
-      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+      SPRING_FLYWAY_ENABLED: "false"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_FLYWAY_URL: jdbc:postgresql://db:5432/totalitea
       SPRING_FLYWAY_USER: admin
       SPRING_FLYWAY_PASSWORD: admin
@@ -35,9 +35,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: totalitea
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 5s
