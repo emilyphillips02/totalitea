@@ -43,4 +43,9 @@ public class Product {
     @Column(name = "created_at")
     private Instant createdAt;
 
-}
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = Instant.now();
+
+    }
+    }
