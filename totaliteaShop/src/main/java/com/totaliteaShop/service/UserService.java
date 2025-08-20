@@ -26,7 +26,12 @@ public class UserService {
             user.setRole("CUSTOMER");
         }
         user.setDateRegistered(Instant.now());
+
+        try{
         userRepository.save(user);
         return "success";
+    } catch (Exception e){
+            return "Registration failed:" +e.getMessage();
+        }
     }
 }

@@ -24,7 +24,7 @@ public String showRegister(Model model)
 @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user, Model model)
 {String result =userService.register(user, user.getPassword());
-        if ("Success".equals(result)) {
+        if ("success".equals(result)) {
             return "redirect:/login";
         } else {
             model .addAttribute("errorMessage", result);
