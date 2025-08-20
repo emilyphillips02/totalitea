@@ -56,9 +56,12 @@ jobs:
         run: ./mvnw -B -DskipTests package
 
       - name: Start app (bg)
+        env:
+          SPRING_PROFILES_ACTIVE: ci
+          SPRING_FLYWAY_ENABLED: "false"
+          SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
         run: |
           nohup java \
-            -Dspring.profiles.active=ci \
             -Dserver.port=18080 \
             -Dmanagement.server.port=18081 \
             -jar target/*-SNAPSHOT.jar > app.log 2>&1 &
@@ -68,12 +71,12 @@ jobs:
       - name: Wait for /actuator/health
         run: |
           for i in {1..60}; do
-            if curl -fsS http://localhost:18081/actuator/health >/dev/null; then
+            if curl -fsS http://localhost:18081/actuator/health | grep -q '"status":"UP"'; then
               echo "Actuator health OK"; exit 0; fi
             sleep 1
           done
           echo "Actuator health did not become ready" >&2
-          tail -n 200 app.log || true # if after 60 secs not healthy then print last 200 lines of app.log
+          tail -n 200 app.log || true
           exit 1
 
       - name: Test localhost:18080
