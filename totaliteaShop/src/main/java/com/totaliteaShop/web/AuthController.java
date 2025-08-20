@@ -16,11 +16,6 @@ public class AuthController {
         return "login";
     }
 
-    @GetMapping("/catalog")
-    public String catalog() {
-        return "catalog";
-    }
-
     @GetMapping("/basket")
     public String basket() {
         return "basket";
