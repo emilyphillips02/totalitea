@@ -1,10 +1,12 @@
 package com.totaliteaShop.controller;
 
+import com.totaliteaShop.model.Basket;
 import com.totaliteaShop.model.Product;
 import com.totaliteaShop.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -13,26 +15,34 @@ import java.util.List;
 public class CatalogController {
 
     private final ProductService productService;
+    private final Basket basket;
 
-    public CatalogController(ProductService productService) {
+    public CatalogController(ProductService productService, Basket basket) {
         this.productService = productService;
+        this.basket = basket;
     }
 
     @GetMapping("/catalog")
     public String catalog(@RequestParam(required = false) String category, Model model) {
         List<Product> products;
-
         if (category != null && !category.isEmpty()) {
-            // Filter products by category
             products = productService.getProductsByCategory(category);
         } else {
-            // Show all products
             products = productService.getAllProducts();
         }
-
-        // Add products to the model for Thymeleaf
         model.addAttribute("products", products);
+        model.addAttribute("basketItemCount", basket.getItems().size());
+        return "catalog";
+    }
 
-        return "catalog"; // renders catalog.html
+    @PostMapping("/catalog/add-to-basket")
+    public String addToBasket(@RequestParam Long productId, @RequestParam(defaultValue = "1") int quantity) {
+        Product product = productService.getAllProducts().stream()
+                .filter(p -> p.getId().equals(productId))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        basket.addProduct(product, quantity);
+        return "redirect:/basket";
     }
 }
