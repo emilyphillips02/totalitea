@@ -1,4 +1,4 @@
-package com.totaliteaShop.config;
+package com.totaliteaShop.dataseed;
 
 import com.totaliteaShop.model.Product;
 import com.totaliteaShop.service.ProductService;
