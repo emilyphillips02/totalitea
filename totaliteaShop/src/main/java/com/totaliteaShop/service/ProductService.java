@@ -11,7 +11,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    // Constructor injection
+
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
