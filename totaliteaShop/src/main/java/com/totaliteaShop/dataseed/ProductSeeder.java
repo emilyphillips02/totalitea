@@ -12,7 +12,6 @@ import java.util.Random;
 
 @Component
 public class ProductSeeder implements CommandLineRunner {
-
     private final ProductService productService;
     private final Random random = new Random();
 
@@ -21,32 +20,45 @@ public class ProductSeeder implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         if (productService.getAllProducts().isEmpty()) {
             List<Product> products = new ArrayList<>();
 
-            // Tea category
-            String[] teaNames = {"Earl Grey", "Green Tea", "Oolong", "Chamomile", "Peppermint", "Jasmine", "English Breakfast"};
-            for (String name : teaNames) {
-                products.add(createProduct(name + " Tea", "Totalitea", "Loose Leaf", randomWeight(150, 300),
-                        randomPrice(3.5, 8.0), randomCaffeine(0, 5), "Tea"));
+
+            String[] looseLeafTeas = {"Earl Grey", "Green Tea", "Oolong", "Jasmine", "English Breakfast"};
+            for (String name : looseLeafTeas) {
+                products.add(createProduct(name + " Tea", "Totalitea", "Loose Leaf",
+                        randomWeight(150, 300), randomPrice(3.5, 8.0), randomCaffeine(2, 5), "Tea"));
             }
 
-            // Coffee category
-            String[] coffeeNames = {"Espresso", "Latte", "Americano", "Cappuccino", "Mocha", "Flat White"};
-            for (String name : coffeeNames) {
-                products.add(createProduct(name + " Coffee", "Totalitea", "Ground", randomWeight(250, 500),
-                        randomPrice(5.0, 10.0), randomCaffeine(8, 15), "Coffee"));
+
+            String[] baggedTeas = {"Chamomile", "Peppermint", "Lemongrass", "Hibiscus"};
+            for (String name : baggedTeas) {
+                products.add(createProduct(name + " Tea", "Herbal Blends Co.", "Bagged",
+                        randomWeight(50, 150), randomPrice(2.5, 6.0), 0, "Tea"));
             }
 
-            // Herbal category
-            String[] herbalNames = {"Chamomile", "Peppermint", "Rooibos", "Lemongrass", "Hibiscus"};
-            for (String name : herbalNames) {
-                products.add(createProduct(name + " Tea", "Totalitea", "Bagged", randomWeight(100, 200),
-                        randomPrice(3.0, 5.0), 0, "Herbal"));
+
+            String[] groundCoffees = {"Espresso", "Latte Blend", "Americano Roast", "Cappuccino Roast"};
+            for (String name : groundCoffees) {
+                products.add(createProduct(name + " Coffee", "Global Roasters", "Ground",
+                        randomWeight(250, 500), randomPrice(5.0, 12.0), randomCaffeine(8, 15), "Coffee"));
             }
 
-            // Save all products
+
+            String[] beanCoffees = {"Colombian Beans", "Ethiopian Yirgacheffe", "Sumatra Dark Roast"};
+            for (String name : beanCoffees) {
+                products.add(createProduct(name, "Coffee Masters", "Whole Beans",
+                        randomWeight(200, 500), randomPrice(7.0, 15.0), randomCaffeine(10, 18), "Coffee"));
+            }
+
+
+            String[] herbalInfusions = {"Rooibos", "Ginger & Lemon", "Mint Blend"};
+            for (String name : herbalInfusions) {
+                products.add(createProduct(name + " Infusion", "Nature's Cup", "Bagged",
+                        randomWeight(80, 200), randomPrice(3.0, 6.0), 0, "Herbal"));
+            }
+
             products.forEach(productService::saveProduct);
         }
     }
