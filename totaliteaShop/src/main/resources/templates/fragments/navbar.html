@@ -2,26 +2,28 @@
      style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
 
     <!-- Left Section -->
-    <div style="display: flex; gap: 15px; align-items: center;">
+    <div style="display: flex; gap: 30px; align-items: center;">
         <span style="font-weight: bold;">
             <a th:href="@{/}">Totalitea</a>
         </span>
 
-        <a th:href="@{/catalog}">Catalog</a>
-        <a th:href="@{/basket}">Basket</a>
+        <div style="display: flex; gap: 30px; align-items: center;">
+            <a th:href="@{/catalog}">Catalog</a>
+            <a th:href="@{/basket}">Basket</a>
+        </div>
 
-        <span th:if="${!#authorization.expression('isAuthenticated()')}">
+        <div th:if="${!#authorization.expression('isAuthenticated()')}" style="display: flex; gap: 30px; align-items: center;">
             <a th:href="@{/login}">Login</a>
             <a th:href="@{/register}">Register</a>
-        </span>
+        </div>
 
-        <span th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}" style="display: flex; gap: 30px; align-items: center;">
             <a th:href="@{/admin}">Admin</a>
-        </span>
+        </div>
     </div>
 
     <!-- Right Section -->
-    <div style="display: flex; align-items: center; gap: 10px;">
+    <div style="display: flex; gap: 15px; align-items: center;">
         <span th:if="${#authorization.expression('isAuthenticated()')}">
             Hello, <span th:text="${#authentication.name}">user</span>
         </span>

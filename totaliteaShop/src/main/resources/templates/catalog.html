@@ -6,7 +6,6 @@
     <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
-
 <div th:replace="~{fragments/navbar :: navbar('catalog')}"></div>
 
 <main style="padding: 20px; max-width: 1000px; margin: auto;">
@@ -28,12 +27,17 @@
                         <span th:text="${product.category}">Category</span> –
                         <span th:text="${product.priceGbp}">Price</span> GBP
                     </div>
-                    <button type="button" th:attr="data-id=${product.id}" style="padding: 5px 10px;">Add to Basket</button>
+
+                    <!-- Form for adding to basket -->
+                    <form th:action="@{/catalog/add-to-basket}" method="post" style="display: flex; gap: 5px; align-items: center;">
+                        <input type="hidden" name="productId" th:value="${product.id}" />
+                        <input type="number" name="quantity" value="1" min="1" style="width: 50px; padding: 3px;">
+                        <button type="submit" style="padding: 5px 10px;">Add to Basket</button>
+                    </form>
                 </div>
             </li>
         </ul>
     </section>
 </main>
-
 </body>
 </html>
