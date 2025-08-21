@@ -66,7 +66,8 @@ public class SecurityConfig {
 
     @Bean
     PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+         //return NoOpPasswordEncoder.getInstance();
+         return new BCryptPasswordEncoder(10);
     }
 
     // Spring Security's JDBC user store against our tables
