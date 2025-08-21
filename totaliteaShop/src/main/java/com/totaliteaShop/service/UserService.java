@@ -2,31 +2,37 @@ package com.totaliteaShop.service;
 
 import com.totaliteaShop.model.User;
 import com.totaliteaShop.respository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.Instant;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder =new BCryptPasswordEncoder();
+    private final UserRepository repo;
+    private final PasswordEncoder encoder;
 
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserService(UserRepository repo, PasswordEncoder encoder) {
+        this.repo = repo;
+        this.encoder = encoder;
     }
+
+    @Transactional
     public String register(User user, String rawPassword) {
-        if (userRepository .findByEmail (user.getEmail()).isPresent()) {
-            return "Email already registered";
-        }
-        user.setPasswordHash(passwordEncoder.encode(rawPassword));
-        if (user .getRole()==null) {
-            user.setRole("CUSTOMER");
-        }
-        user.setDateRegistered(Instant.now());
-        userRepository.save(user);
-        return "success";
+        if (user.getName() == null || user.getName().isBlank()) return "Name is required.";
+        if (user.getEmail() == null || user.getEmail().isBlank()) return "Email is required.";
+
+        String email = user.getEmail().trim().toLowerCase();
+        if (repo.findByEmail(email).isPresent()) return "An account with this email already exists.";
+
+        if (rawPassword == null || rawPassword.length() < 8)
+            return "Password must be at least 8 characters.";
+
+        // hash + save
+        user.setEmail(email);
+        user.setRole(user.getRole() == null ? "CUSTOMER" : user.getRole());
+        user.setPasswordHash(encoder.encode(rawPassword));
+        user.setPassword(null);
+        repo.save(user);
+        return "Success";
     }
 }
