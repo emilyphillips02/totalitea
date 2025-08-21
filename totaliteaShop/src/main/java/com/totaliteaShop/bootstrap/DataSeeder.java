@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class DataSeeder {
 
     @Bean
-    CommandLineRunner seedTestUser(JdbcTemplate jdbc, PasswordEncoder encoder) { // <-- inject
+    CommandLineRunner seedTestUser(JdbcTemplate jdbc, PasswordEncoder encoder) { 
         return args -> {
             String email = "user@example.com";
             String raw   = "password1";
