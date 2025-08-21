@@ -5,9 +5,7 @@ import com.totaliteaShop.model.Product;
 import com.totaliteaShop.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +27,7 @@ public class CatalogController {
             @RequestParam(required = false) String type,
             @RequestParam(required = false) String supplier,
             @RequestParam(required = false) String name,
+            @RequestParam(required = false) String basketMessage,
             Model model) {
 
         List<Product> products = productService.getAllProducts();
@@ -60,42 +59,33 @@ public class CatalogController {
         model.addAttribute("products", products);
 
 
-        List<String> categories = productService.getAllProducts().stream()
-                .map(Product::getCategory)
-                .distinct()
-                .sorted()
-                .collect(Collectors.toList());
-
-        List<String> types = productService.getAllProducts().stream()
-                .map(Product::getType)
-                .distinct()
-                .sorted()
-                .collect(Collectors.toList());
-
-        List<String> suppliers = productService.getAllProducts().stream()
-                .map(Product::getSupplier)
-                .distinct()
-                .sorted()
-                .collect(Collectors.toList());
-
-        model.addAttribute("categories", categories);
-        model.addAttribute("types", types);
-        model.addAttribute("suppliers", suppliers);
+        model.addAttribute("categories", productService.getAllProducts().stream()
+                .map(Product::getCategory).distinct().sorted().collect(Collectors.toList()));
+        model.addAttribute("types", productService.getAllProducts().stream()
+                .map(Product::getType).distinct().sorted().collect(Collectors.toList()));
+        model.addAttribute("suppliers", productService.getAllProducts().stream()
+                .map(Product::getSupplier).distinct().sorted().collect(Collectors.toList()));
 
         model.addAttribute("category", category);
         model.addAttribute("type", type);
         model.addAttribute("supplier", supplier);
         model.addAttribute("name", name);
 
-        // Basket count for navbar
         model.addAttribute("basketItemCount", basket.getItems().size());
+
+        model.addAttribute("basketMessage", basketMessage);
 
         return "catalog";
     }
 
     @PostMapping("/catalog/add-to-basket")
     public String addToBasket(@RequestParam Long productId,
-                              @RequestParam(defaultValue = "1") int quantity) {
+                              @RequestParam(defaultValue = "1") int quantity,
+                              @RequestParam(required = false) String category,
+                              @RequestParam(required = false) String type,
+                              @RequestParam(required = false) String supplier,
+                              @RequestParam(required = false) String name,
+                              Model model) {
 
         Product product = productService.getAllProducts().stream()
                 .filter(p -> p.getId().equals(productId))
@@ -104,6 +94,16 @@ public class CatalogController {
 
         basket.addProduct(product, quantity);
 
-        return "redirect:/basket";
+        String message = "Added " + quantity + " × " + product.getName() + " to your basket.";
+
+
+        String redirectUrl = "/catalog?basketMessage=" + message;
+
+        if (category != null) redirectUrl += "&category=" + category;
+        if (type != null) redirectUrl += "&type=" + type;
+        if (supplier != null) redirectUrl += "&supplier=" + supplier;
+        if (name != null) redirectUrl += "&name=" + name;
+
+        return "redirect:" + redirectUrl;
     }
 }

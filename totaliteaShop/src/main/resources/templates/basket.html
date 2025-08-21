@@ -1,61 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Basket</title>
     <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
 <div th:replace="~{fragments/navbar :: navbar('basket')}"></div>
 
-<main style="padding: 20px; max-width: 1000px; margin: auto;">
+<main style="padding: 20px; max-width: 800px; margin: auto;">
     <h1>Basket</h1>
 
-    <div th:if="${basket.items.isEmpty()}">
-        <p>Your basket is empty. <a th:href="@{/catalog}">Go shopping!</a></p>
+    <div th:if="${basketItems.isEmpty()}">
+        <p>Your basket is empty.</p>
     </div>
 
-    <div th:if="${!basket.items.isEmpty()}">
-        <table style="width: 100%; border-collapse: collapse;">
-            <thead>
-            <tr>
-                <th style="text-align: left; border-bottom: 1px solid #ccc;">Product</th>
-                <th style="text-align: right; border-bottom: 1px solid #ccc;">Price (GBP)</th>
-                <th style="text-align: right; border-bottom: 1px solid #ccc;">Quantity</th>
-                <th style="text-align: right; border-bottom: 1px solid #ccc;">Subtotal</th>
-                <th style="border-bottom: 1px solid #ccc;"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="item : ${basket.items}">
-                <td th:text="${item.product.name}">Product Name</td>
-                <td th:text="${item.product.priceGbp}">0.00</td>
-                <td th:text="${item.quantity}">1</td>
-                <td th:text="${item.subTotal}">0.00</td>
-                <td>
-                    <form th:action="@{/basket/remove}" method="post">
-                        <input type="hidden" name="productId" th:value="${item.product.id}" />
-                        <button type="submit">Remove</button>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <td colspan="3" style="text-align: right; font-weight: bold;">Total:</td>
-                <td th:text="${basket.totalPrice}" style="font-weight: bold;">0.00</td>
-                <td></td>
-            </tr>
-            </tfoot>
-        </table>
+    <table th:if="${!basketItems.isEmpty()}" style="width: 100%; border-collapse: collapse;">
+        <thead>
+        <tr>
+            <th style="text-align: left;">Product</th>
+            <th>Price (GBP)</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${basketItems}">
+            <td th:text="${item.product.name}">Product Name</td>
+            <td th:text="${item.product.priceGbp}">0.00</td>
+            <td>
+                <form th:action="@{/basket/update}" method="post" style="display: flex; gap: 5px; align-items: center;">
+                    <input type="hidden" name="productId" th:value="${item.product.id}" />
+                    <input type="number" name="quantity" th:value="${item.quantity}" min="1" style="width: 50px; padding: 3px;">
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+            <td th:text="${item.subTotal}">0.00</td>
+            <td>
+                <form th:action="@{/basket/remove}" method="post">
+                    <input type="hidden" name="productId" th:value="${item.product.id}" />
+                    <button type="submit">Remove</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3" style="text-align: right; font-weight: bold;">Total:</td>
+            <td th:text="${totalPrice}" colspan="2">0.00</td>
+        </tr>
+        </tfoot>
+    </table>
 
-        <div style="margin-top: 20px;">
-            <form th:action="@{/checkout}" method="get">
-                <button type="submit" style="padding: 10px 20px;">Proceed to Checkout</button>
-            </form>
-        </div>
+    <div style="margin-top: 20px;">
+        <form th:action="@{/basket/clear}" method="post">
+            <button type="submit">Clear Basket</button>
+        </form>
     </div>
 </main>
 </body>
 </html>
-

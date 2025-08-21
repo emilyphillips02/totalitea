@@ -8,84 +8,66 @@
 <body>
 <div th:replace="~{fragments/navbar :: navbar('catalog')}"></div>
 
-<main style="padding: 20px; max-width: 1000px; margin: auto;">
+<main style="padding: 20px; max-width: 800px; margin: auto;">
+    <h1>Product Catalog</h1>
 
-    <h1 style="margin-bottom: 20px;">Catalog</h1>
 
-
-    <form method="get" th:action="@{/catalog}"
-          style="margin-bottom: 30px; display: flex; gap: 10px; flex-wrap: wrap;">
-
-        <select name="category" style="padding: 5px;">
+    <form method="get" action="#" style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+        <select name="category">
             <option value="">All Categories</option>
-            <option th:each="cat : ${categories}"
-                    th:value="${cat}"
-                    th:text="${cat}"
-                    th:selected="${cat == category}">
-            </option>
+            <option th:each="cat : ${categories}" th:value="${cat}" th:text="${cat}" th:selected="${cat == category}"></option>
         </select>
 
-
-        <select name="type" style="padding: 5px;">
+        <select name="type">
             <option value="">All Types</option>
-            <option th:each="t : ${types}"
-                    th:value="${t}"
-                    th:text="${t}"
-                    th:selected="${t == type}">
-            </option>
+            <option th:each="t : ${types}" th:value="${t}" th:text="${t}" th:selected="${t == type}"></option>
         </select>
 
-
-        <select name="supplier" style="padding: 5px;">
+        <select name="supplier">
             <option value="">All Suppliers</option>
-            <option th:each="s : ${suppliers}"
-                    th:value="${s}"
-                    th:text="${s}"
-                    th:selected="${s == supplier}">
-            </option>
+            <option th:each="s : ${suppliers}" th:value="${s}" th:text="${s}" th:selected="${s == supplier}"></option>
         </select>
 
-
-        <input type="text" name="name" placeholder="Search by name..."
-               th:value="${name}" style="padding: 5px;">
-
-        <button type="submit" style="padding: 5px 10px;">Filter</button>
+        <input type="text" name="name" placeholder="Search by name..." th:value="${name}">
+        <button type="submit">Filter</button>
     </form>
 
 
-    <section>
-        <h4 style="margin-bottom: 15px;">Explore our curated selection of teas and coffees:</h4>
+    <div th:if="${basketMessage}" style="color: green; margin-bottom: 10px;">
+        <p th:text="${basketMessage}"></p>
+    </div>
 
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+        <tr>
+            <th style="text-align: left;">Product</th>
+            <th>Price (GBP)</th>
+            <th>Quantity</th>
+            <th>Add to Basket</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.name}">Product Name</td>
+            <td th:text="${product.priceGbp}">0.00</td>
+            <td>
+                <form th:action="@{/catalog/add-to-basket}" method="post" style="display:flex; gap:5px; align-items:center;">
+                    <input type="hidden" name="productId" th:value="${product.id}" />
+                    <input type="number" name="quantity" value="1" min="1" style="width:50px; padding:3px;">
+                    <button type="submit">Add</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-        <ul th:if="${products.size() > 0}" style="list-style: none; padding: 0;">
-            <li th:each="product : ${products}"
-                style="margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <strong th:text="${product.name}" style="font-size: 1.1em;">Product Name</strong><br>
-                        <span th:text="${product.category}">Category</span> –
-                        <span th:text="${product.type}">Type</span> –
-                        <span th:text="${product.supplier}">Supplier</span> –
-                        <span th:text="${product.priceGbp}">Price</span> GBP
-                    </div>
-
-
-                    <form th:action="@{/catalog/add-to-basket}" method="post"
-                          style="display: flex; gap: 5px; align-items: center;">
-                        <input type="hidden" name="productId" th:value="${product.id}" />
-                        <input type="number" name="quantity" value="1" min="1"
-                               style="width: 60px; padding: 3px; text-align: center;">
-                        <button type="submit" style="padding: 5px 10px;">Add to Basket</button>
-                    </form>
-                </div>
-            </li>
-        </ul>
-
-
-        <p th:if="${products.size() == 0}" style="color: gray; margin-top: 20px;">
-            No products match your filters. Try adjusting your search.
-        </p>
-    </section>
+    <div style="margin-top: 20px; text-align: right;">
+        <a th:href="@{/basket}">
+            <button type="button" style="padding: 10px 15px; font-size: 16px;">
+                Checkout
+            </button>
+        </a>
+    </div>
 </main>
 </body>
 </html>

@@ -16,11 +16,6 @@ public class AuthController {
         return "login";
     }
 
-    @GetMapping("/basket")
-    public String basket() {
-        return "basket";
-    }
-
     @GetMapping("/error")
     public String admin() {
         return "error";
