@@ -1,4 +1,4 @@
-package com.totaliteaShop.web;
+package com.totaliteaShop.controller;
 
 import com.totaliteaShop.model.Product;
 import com.totaliteaShop.service.ProductService;
@@ -19,16 +19,20 @@ public class CatalogController {
     }
 
     @GetMapping("/catalog")
-    public String showCatalog(@RequestParam(required = false) String category, Model model) {
+    public String catalog(@RequestParam(required = false) String category, Model model) {
         List<Product> products;
 
-        if (category != null && !category.isBlank()) {
+        if (category != null && !category.isEmpty()) {
+            // Filter products by category
             products = productService.getProductsByCategory(category);
         } else {
+            // Show all products
             products = productService.getAllProducts();
         }
 
+        // Add products to the model for Thymeleaf
         model.addAttribute("products", products);
-        return "catalog";
+
+        return "catalog"; // renders catalog.html
     }
 }
