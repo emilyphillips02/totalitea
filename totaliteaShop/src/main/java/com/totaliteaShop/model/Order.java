@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,13 +18,15 @@ import java.time.Instant;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> items;
 
     @Column(name = "total_price", nullable = false, precision = 10, scale = 2)
     private BigDecimal totalPrice;
@@ -32,11 +35,14 @@ public class Order {
     private BigDecimal shippingCost;
 
     @ColumnDefault("'PENDING'")
-    @Column(name = "status", length = 20)
+    @Column(length = 20)
     private String status;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "order_date")
     private Instant orderDate;
 
+    @PrePersist
+    protected void onCreate() {
+        this.orderDate = Instant.now();
+    }
 }
