@@ -3,3 +3,12 @@
 .DS_Store
 .idea
 /.idea
+
+# H2 database files
+*.mv.db
+*.h2.db
+*.trace.db
+*.lock
+
+# ignore local data folder
+/data/
