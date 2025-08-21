@@ -5,6 +5,16 @@ target/
 !**/src/test/**/target/
 
 
+# H2 database files
+*.mv.db
+*.h2.db
+*.trace.db
+*.lock
+
+# ignore a local data folder
+/data/
+
+
 .DS_Store
 
 ### STS ###
