@@ -13,6 +13,7 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -62,12 +63,19 @@ public class SecurityConfig {
 
     @Bean
     PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return NoOpPasswordEncoder.getInstance();
     }
 
     // Spring Security's JDBC user store against our tables
     @Bean
     UserDetailsService userDetailsService(DataSource dataSource) {
-        return new JdbcUserDetailsManager(dataSource);
+        JdbcUserDetailsManager mgr = new JdbcUserDetailsManager(dataSource);
+        mgr.setUsersByUsernameQuery(
+                "select email as username, password_hash as password, true as enabled from users where email = ?"
+        );
+        mgr.setAuthoritiesByUsernameQuery(
+                "select email as username, concat('ROLE_', coalesce(role, 'CUSTOMER')) as authority from users where email = ?"
+        );
+        return mgr;
     }
 }
