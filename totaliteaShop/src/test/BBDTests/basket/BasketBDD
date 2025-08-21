@@ -43,3 +43,4 @@ Feature: attempts checkout with empty Basket
         And: then clicks "proceed to checkout"
         Then: the page does not move onto the checkout page. The message "add items to basket before placing an order"
         pops up on screen
+

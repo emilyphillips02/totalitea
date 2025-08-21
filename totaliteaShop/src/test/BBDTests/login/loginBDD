@@ -30,3 +30,4 @@ Feature: Homepage
         When: the User has not connected to the database
         And: opens the web app on local host
         Then: green error message. cannot login
+
