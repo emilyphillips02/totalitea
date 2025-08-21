@@ -37,4 +37,9 @@ public class User {
     @Column(name = "date_registered")
     private Instant dateRegistered;
 
-}
+    @PrePersist
+    protected void onCreate() {
+        this.dateRegistered = Instant.now();
+
+    }
+    }
