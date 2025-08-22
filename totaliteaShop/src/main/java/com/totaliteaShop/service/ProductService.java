@@ -1,7 +1,7 @@
 package com.totaliteaShop.service;
 
 import com.totaliteaShop.model.Product;
-import com.totaliteaShop.respository.ProductRepository;
+import com.totaliteaShop.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,5 +40,11 @@ public class ProductService {
 
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
+    }
+
+    // ✅ Added this so BasketController works
+    public Product findById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id " + id));
     }
 }

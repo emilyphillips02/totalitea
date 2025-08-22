@@ -53,10 +53,13 @@
         </tfoot>
     </table>
 
-    <div style="margin-top: 20px;">
+    <div style="margin-top: 20px; display: flex; gap: 10px;">
         <form th:action="@{/basket/clear}" method="post">
             <button type="submit">Clear Basket</button>
         </form>
+        <a th:href="@{/checkout}">
+            <button type="button">Checkout</button>
+        </a>
     </div>
 </main>
 </body>

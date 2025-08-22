@@ -39,6 +39,7 @@ public class SecurityConfig {
                                 "/", "/index",
                                 "/login", "/register",
                                 "/catalog/**", "/basket/**",
+                                "/checkout/**",
                                 "/error", "/favicon.ico",
                                 "/assets/**", "/css/**", "/js/**", "/images/**", "/webjars/**"
                         ).permitAll()
@@ -52,7 +53,7 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .usernameParameter("email")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/", true)
+                        .defaultSuccessUrl("/", false)
                         .permitAll())
                 .logout(logout -> logout
                         .logoutUrl("/logout")
