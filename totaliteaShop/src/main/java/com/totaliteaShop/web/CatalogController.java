@@ -1,24 +1,24 @@
 package com.totaliteaShop.web;
 
-import com.totaliteaShop.model.Basket;
+import com.totaliteaShop.model.BasketItem;
 import com.totaliteaShop.model.Product;
 import com.totaliteaShop.service.ProductService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 @Controller
 public class CatalogController {
 
     private final ProductService productService;
-    private final Basket basket;
 
-    public CatalogController(ProductService productService, Basket basket) {
+    public CatalogController(ProductService productService) {
         this.productService = productService;
-        this.basket = basket;
     }
 
     @GetMapping("/catalog")
@@ -28,6 +28,7 @@ public class CatalogController {
             @RequestParam(required = false) String supplier,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String basketMessage,
+            HttpSession session,
             Model model) {
 
         List<Product> products = productService.getAllProducts();
@@ -58,7 +59,6 @@ public class CatalogController {
 
         model.addAttribute("products", products);
 
-
         model.addAttribute("categories", productService.getAllProducts().stream()
                 .map(Product::getCategory).distinct().sorted().collect(Collectors.toList()));
         model.addAttribute("types", productService.getAllProducts().stream()
@@ -71,7 +71,10 @@ public class CatalogController {
         model.addAttribute("supplier", supplier);
         model.addAttribute("name", name);
 
-        model.addAttribute("basketItemCount", basket.getItems().size());
+        // --- Count items in session basket ---
+        List<BasketItem> basket = (List<BasketItem>) session.getAttribute("basket");
+        int basketCount = (basket != null) ? basket.size() : 0;
+        model.addAttribute("basketItemCount", basketCount);
 
         model.addAttribute("basketMessage", basketMessage);
 
@@ -85,18 +88,24 @@ public class CatalogController {
                               @RequestParam(required = false) String type,
                               @RequestParam(required = false) String supplier,
                               @RequestParam(required = false) String name,
-                              Model model) {
+                              HttpSession session) {
 
-        Product product = productService.getAllProducts().stream()
-                .filter(p -> p.getId().equals(productId))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+        // --- Session-based basket ---
+        List<BasketItem> basket = (List<BasketItem>) session.getAttribute("basket");
+        if (basket == null) basket = new ArrayList<>();
 
-        basket.addProduct(product, quantity);
+        Product product = productService.findById(productId);
 
+        BasketItem item = new BasketItem();
+        item.setProduct(product);
+        item.setQuantity(quantity);
+        item.setSubTotal(product.getPriceGbp().multiply(java.math.BigDecimal.valueOf(quantity)));
+
+        basket.add(item);
+        session.setAttribute("basket", basket);
+
+        // --- Build redirect URL ---
         String message = "Added " + quantity + " × " + product.getName() + " to your basket.";
-
-
         String redirectUrl = "/catalog?basketMessage=" + message;
 
         if (category != null) redirectUrl += "&category=" + category;

@@ -1,4 +1,4 @@
-package com.totaliteaShop.respository;
+package com.totaliteaShop.repository;
 
 import com.totaliteaShop.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
