@@ -1,7 +1,7 @@
 package com.totaliteaShop.web;
 
 import com.totaliteaShop.model.BasketItem;
-import com.totaliteaShop.model.Product;
+import com.totaliteaShop.service.ShippingService;
 import com.totaliteaShop.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -17,83 +17,29 @@ import java.util.List;
 public class BasketController {
 
     private final ProductService productService;
+    private final ShippingService shippingService; // add shippingService
 
-    public BasketController(ProductService productService) {
+    public BasketController(ProductService productService, ShippingService shippingService) {
         this.productService = productService;
+        this.shippingService = shippingService;
     }
 
     @GetMapping
     public String viewBasket(HttpSession session, Model model) {
         List<BasketItem> basket = (List<BasketItem>) session.getAttribute("basket");
-        if (basket == null) {
-            basket = new ArrayList<>();
-        }
+        if (basket == null) basket = new ArrayList<>();
 
         BigDecimal total = basket.stream()
                 .map(BasketItem::getSubTotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
+        BigDecimal shippingCost = shippingService.calculateShippingCost(basket, total);
+
         model.addAttribute("basketItems", basket);
         model.addAttribute("totalPrice", total);
+        model.addAttribute("shippingCost", shippingCost); // add shippingCost for Thymeleaf
 
-        return "basket"; // basket.html
+        return "basket";
     }
 
-    @PostMapping("/add")
-    public String addToBasket(@RequestParam Long productId,
-                              @RequestParam int quantity,
-                              HttpSession session) {
-
-        List<BasketItem> basket = (List<BasketItem>) session.getAttribute("basket");
-        if (basket == null) {
-            basket = new ArrayList<>();
-        }
-
-        Product product = productService.findById(productId);
-
-        BasketItem item = new BasketItem();
-        item.setProduct(product);
-        item.setQuantity(quantity);
-        item.setSubTotal(product.getPriceGbp().multiply(BigDecimal.valueOf(quantity)));
-
-        basket.add(item);
-
-        session.setAttribute("basket", basket);
-
-        return "redirect:/basket";
-    }
-
-    @PostMapping("/update")
-    public String updateQuantity(@RequestParam Long productId,
-                                 @RequestParam int quantity,
-                                 HttpSession session) {
-        List<BasketItem> basket = (List<BasketItem>) session.getAttribute("basket");
-        if (basket != null) {
-            basket.forEach(item -> {
-                if (item.getProduct().getId().equals(productId)) {
-                    item.setQuantity(quantity);
-                    item.setSubTotal(item.getProduct().getPriceGbp()
-                            .multiply(BigDecimal.valueOf(quantity)));
-                }
-            });
-            session.setAttribute("basket", basket);
-        }
-        return "redirect:/basket";
-    }
-
-    @PostMapping("/remove")
-    public String removeFromBasket(@RequestParam Long productId, HttpSession session) {
-        List<BasketItem> basket = (List<BasketItem>) session.getAttribute("basket");
-        if (basket != null) {
-            basket.removeIf(item -> item.getProduct().getId().equals(productId));
-            session.setAttribute("basket", basket);
-        }
-        return "redirect:/basket";
-    }
-
-    @PostMapping("/clear")
-    public String clearBasket(HttpSession session) {
-        session.removeAttribute("basket");
-        return "redirect:/basket";
-    }
 }

@@ -8,9 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.ArrayList;
 
 @Controller
 public class CatalogController {
@@ -71,7 +72,6 @@ public class CatalogController {
         model.addAttribute("supplier", supplier);
         model.addAttribute("name", name);
 
-        // --- Count items in session basket ---
         List<BasketItem> basket = (List<BasketItem>) session.getAttribute("basket");
         int basketCount = (basket != null) ? basket.size() : 0;
         model.addAttribute("basketItemCount", basketCount);
@@ -90,7 +90,6 @@ public class CatalogController {
                               @RequestParam(required = false) String name,
                               HttpSession session) {
 
-        // --- Session-based basket ---
         List<BasketItem> basket = (List<BasketItem>) session.getAttribute("basket");
         if (basket == null) basket = new ArrayList<>();
 
@@ -99,12 +98,12 @@ public class CatalogController {
         BasketItem item = new BasketItem();
         item.setProduct(product);
         item.setQuantity(quantity);
-        item.setSubTotal(product.getPriceGbp().multiply(java.math.BigDecimal.valueOf(quantity)));
+        item.setSubTotal(product.getPriceGbp().multiply(BigDecimal.valueOf(quantity)));
 
         basket.add(item);
         session.setAttribute("basket", basket);
 
-        // --- Build redirect URL ---
+
         String message = "Added " + quantity + " × " + product.getName() + " to your basket.";
         String redirectUrl = "/catalog?basketMessage=" + message;
 
