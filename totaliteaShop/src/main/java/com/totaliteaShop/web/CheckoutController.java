@@ -5,6 +5,7 @@ import com.totaliteaShop.model.Order;
 import com.totaliteaShop.model.User;
 import com.totaliteaShop.repository.UserRepository;
 import com.totaliteaShop.service.OrderService;
+import com.totaliteaShop.service.ShippingService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -20,43 +22,42 @@ public class CheckoutController {
 
     private final OrderService orderService;
     private final UserRepository userRepository;
+    private final ShippingService shippingService;
 
-    public CheckoutController(OrderService orderService, UserRepository userRepository) {
+    public CheckoutController(OrderService orderService,
+                              UserRepository userRepository,
+                              ShippingService shippingService) {
         this.orderService = orderService;
         this.userRepository = userRepository;
+        this.shippingService = shippingService;
     }
 
-    // --- GET to view checkout page (guest or logged-in)
     @GetMapping
-    public String viewCheckout(@AuthenticationPrincipal UserDetails principal,
-                               HttpSession session,
-                               Model model) {
+    public String viewCheckout(HttpSession session, Model model) {
         List<BasketItem> basket = (List<BasketItem>) session.getAttribute("basket");
         if (basket == null || basket.isEmpty()) {
-            model.addAttribute("basketItems", List.of());
-            model.addAttribute("totalPrice", 0);
-            return "checkout";
+            model.addAttribute("error", "Your basket is empty.");
+            return "basket";
         }
 
-        java.math.BigDecimal total = basket.stream()
+        BigDecimal total = basket.stream()
                 .map(BasketItem::getSubTotal)
-                .reduce(java.math.BigDecimal.ZERO, java.math.BigDecimal::add);
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal shippingCost = shippingService.calculateShippingCost(basket, total);
+        BigDecimal finalTotal = total.add(shippingCost);
 
         model.addAttribute("basketItems", basket);
         model.addAttribute("totalPrice", total);
+        model.addAttribute("shippingCost", shippingCost);
+        model.addAttribute("finalTotal", finalTotal);
 
         return "checkout";
     }
 
-    // --- POST to create order and process payment (guest or logged-in)
     @PostMapping
     public String startCheckout(@AuthenticationPrincipal UserDetails principal,
                                 HttpSession session,
-                                @RequestParam String fullName,
-                                @RequestParam String address,
-                                @RequestParam String cardNumber,
-                                @RequestParam String expiryDate,
-                                @RequestParam String cvv,
                                 Model model) {
 
         List<BasketItem> basket = (List<BasketItem>) session.getAttribute("basket");
@@ -67,20 +68,29 @@ public class CheckoutController {
 
         User user = null;
         if (principal != null) {
-            user = userRepository.findByEmail(principal.getUsername())
-                    .orElseThrow(() -> new RuntimeException("User not found"));
+            String email = principal.getUsername();
+            user = userRepository.findByEmail(email)
+                    .orElseThrow(() -> new RuntimeException("User not found: " + email));
         }
+
+        BigDecimal total = basket.stream()
+                .map(BasketItem::getSubTotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal shippingCost = shippingService.calculateShippingCost(basket, total);
+        BigDecimal finalTotal = total.add(shippingCost);
 
         Order order = orderService.placeOrder(user, basket);
 
-        // clear session basket after placing order
-        session.removeAttribute("basket");
-
         model.addAttribute("order", order);
-        return "confirmation"; // show confirmation page
+        model.addAttribute("basketItems", basket);
+        model.addAttribute("totalPrice", total);
+        model.addAttribute("shippingCost", shippingCost);
+        model.addAttribute("finalTotal", finalTotal);
+
+        return "checkout";
     }
 
-    // optional: /checkout/complete for external payment gateway callbacks
     @GetMapping("/complete")
     public String completeOrder(@RequestParam Long orderId, Model model) {
         Order order = orderService.findByIdOrThrow(orderId);

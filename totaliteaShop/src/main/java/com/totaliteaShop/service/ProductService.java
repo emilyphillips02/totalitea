@@ -42,7 +42,7 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    // ✅ Added this so BasketController works
+    //  Added this so BasketController works
     public Product findById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with id " + id));

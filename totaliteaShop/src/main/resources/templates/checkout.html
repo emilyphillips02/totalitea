@@ -6,6 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
+
 <div th:replace="~{fragments/navbar :: navbar('checkout')}"></div>
 
 <main style="padding: 20px; max-width: 800px; margin: auto;">
@@ -36,8 +37,16 @@
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="3" style="text-align: right; font-weight: bold;">Total:</td>
+                <td colspan="3" style="text-align: right; font-weight: bold;">Subtotal:</td>
                 <td th:text="${totalPrice}">0.00</td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align: right; font-weight: bold;">Shipping:</td>
+                <td th:text="${shippingCost}">0.00</td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align: right; font-weight: bold;">Total:</td>
+                <td th:text="${finalTotal}">0.00</td>
             </tr>
             </tfoot>
         </table>
